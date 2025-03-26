@@ -53,7 +53,7 @@ $(document).ready(function () {
             alert("Registro exitoso. ¡Bienvenido!");
             $("#registroForm")[0].reset(); // LIMPIA FORMULARIO
         }
-        // VALIDACIÓN LOGIN
+        // VALIDAR LOGIN
 $(document).ready(function () {
     $("#loginForm").submit(function (event) {
       event.preventDefault();
@@ -63,13 +63,13 @@ $(document).ready(function () {
   
       let errores = [];
   
-      // Validar email
+      // VALIDAR EMAIL
       let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         errores.push("El correo electrónico no es válido.");
       }
   
-      // Validar contraseña
+      // VALIDAR CONTRASEÑA
       if (password.length < 6) {
         errores.push("La contraseña debe tener al menos 6 caracteres.");
       }
