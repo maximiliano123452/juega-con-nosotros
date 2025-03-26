@@ -22,6 +22,7 @@
       <li><a href="contacto.html">Contacto</a></li>
       <li><a href="registro.html">Registro</a></li>
       <li><a href="login.html">Iniciar Sesión</a></li>
+      <li><a href="perfil.html"><img src="img/icono-perfil.png" alt="Perfil" style="width:24px; vertical-align:middle;"></a></li>
     </ul>
   </nav>
 
@@ -86,7 +87,7 @@
           errores.push("Los campos obligatorios no pueden estar vacíos.");
         }
 
-        let emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+        const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
         if (!emailRegex.test(email)) {
           errores.push("Correo electrónico inválido.");
         }
@@ -111,3 +112,4 @@
   </script>
 </body>
 </html>
+
