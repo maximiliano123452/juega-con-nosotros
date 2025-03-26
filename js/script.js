@@ -53,5 +53,33 @@ $(document).ready(function () {
             alert("Registro exitoso. ¡Bienvenido!");
             $("#registroForm")[0].reset(); // LIMPIA FORMULARIO
         }
+        // VALIDACIÓN LOGIN
+$(document).ready(function () {
+    $("#loginForm").submit(function (event) {
+      event.preventDefault();
+  
+      let email = $("#emailLogin").val().trim();
+      let password = $("#passwordLogin").val();
+  
+      let errores = [];
+  
+      // Validar email
+      let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        errores.push("El correo electrónico no es válido.");
+      }
+  
+      // Validar contraseña
+      if (password.length < 6) {
+        errores.push("La contraseña debe tener al menos 6 caracteres.");
+      }
+  
+      if (errores.length > 0) {
+        alert(errores.join("\n"));
+      } else {
+        alert("Inicio de sesión exitoso.");
+        $("#loginForm")[0].reset();
+      }
     });
-});
+  });
+  
