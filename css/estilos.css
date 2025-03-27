@@ -101,6 +101,16 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
+
+.titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* Grosor del texto */
+    text-align: center; /* Centrado del texto */
+    color: var(--color-texto); /* Usando la variable de color del texto */
+    margin-bottom: 20px; /* Espaciado debajo del título */
+    margin-top: 20px;
+}
+
 /*CATEGORIAS*/
 .categorias {
     display: flex;
@@ -521,6 +531,8 @@ h3 {
         max-width: 90%; 
         margin-top: 10px;
         margin-bottom: 10px;
+        justify-content: center;
+        flex-direction: column;
     }
 
     .btn-custom, .btn-secondary {
@@ -646,10 +658,20 @@ h3 {
         font-family: 'Montserrat', sans-serif;
         word-wrap: break-word; 
         overflow-wrap: break-word; 
-        max-width: 90%; 
+        max-width: 100%; 
         margin-top: 10px;
         margin-bottom: 10px;
+        justify-content: center;
+        align-items: center;
     }
+
+    .titulo {
+        text-align: center; /* Centrado del texto */
+        margin-bottom: 20px; /* Espaciado debajo del título */
+        width: 100%; /* Asegura que el título ocupe el 100% del ancho */
+        display: block; /* Asegura que el título sea un bloque que ocupe todo el ancho */
+    }
+
     .btn-custom, .btn-secondary {
         margin-bottom: 10px; /* Añadir espacio entre los botones */
     }

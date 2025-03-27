@@ -24,8 +24,8 @@ h1 {
     color: var(--color-texto);
     font-size: 50px;
     position: absolute;
-    top: 10%; /* Mueve Juega con nosotros arriba abajo en pantallas grandes*/
-    left: 20%; /* Mueve Juega con nosotros izquierda derecha en pantallas grandes*/
+    top: 10%;
+    left: 20%;
     white-space: nowrap;
 }
 
@@ -35,15 +35,14 @@ h1 {
     color: var(--color-texto);
     font-size: 24px;
     position: absolute;
-    top: 50%; /* Mueve slogan arriba-abajo*/
-    left: 25%; /* Mueve slogan izquierda-derecha*/
+    top: 50%;
+    left: 25%;
     white-space: nowrap;
 }
 
 /*BODY*/
 body {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
     text-align: center;
     background-color: var(--color-fondo);
     color: var(--color-texto);
@@ -51,7 +50,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
-    min-width: 400px;
+    min-width: 300px;
 }
 
 main {
@@ -74,7 +73,7 @@ nav {
     overflow: hidden;
     text-align: center;
     padding: 10px 0;
-    min-width: 375px;
+    min-width: 300px;
 }
 
 nav ul {
@@ -133,8 +132,8 @@ h3 {
     color: var(--color-texto);
     font-size: 20px;
     margin: 20px 0;
+    text-align: center;
 }
-
 
 /*TAMAÑO IMAGENES*/
 .categoria img {
@@ -167,13 +166,15 @@ h3 {
 .subcategoria {
     display: flex;
     align-items: center;
-    gap: 60px;
+    gap: 20px;
+    margin-right: 15px;
 }
 
 .texto p {
     text-align: justify;
     max-width: 500px;
     font-family: 'Montserrat', sans-serif;
+    padding: 10px;
 }
 
 .contenido {
@@ -182,10 +183,11 @@ h3 {
     margin: 15px auto; 
 }
 
-
-@media (max-width: 768px) {
-
+.titulo-contenido {
+    margin-top: 10px;
+    text-align: center;
 }
+
 
 /*FORMULARIOS*/
 .container-formulario, .registro-container {
@@ -202,11 +204,15 @@ h3 {
     max-width: 90%; 
     margin-top: 10px;
     margin-bottom: 10px;
-    
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 50vh;
 }
 
+
 .container-formulario h2 {
-    margin-bottom: 10px; /* Ajusta el valor según el espacio que quieras */
+    margin-bottom: 10px; 
 }
 
 .contacto-form, .registro-form {
@@ -256,11 +262,6 @@ h3 {
 }
 
 /*MENSAJES*/
-.contacto-form textarea, .registro-form textarea {
-    height: 80px;
-    resize: none;
-}
-
 .registro-form label {
     display: block;
     margin-top: 10px;
@@ -392,6 +393,7 @@ h3 {
     text-decoration: underline;
 }
 
+
 /*RESPONSIVO*/
 @media (max-width: 768px) {
 
@@ -409,7 +411,7 @@ h3 {
         background-position: center bottom; 
         margin: 0px;
         height: 120px; 
-        min-width: 375px;
+        min-width: 300px;
     }
 
     h1 {
@@ -424,11 +426,23 @@ h3 {
         top: 45%;
         left: 10%;
         background-color: rgba(135, 108, 194, 0.7); /* Fondo violeta con transparencia */
-        padding: 5px 5px;
+        padding: 2px 2px;
         border-radius: 15px;
         text-shadow: /* Sombra para el texto */
         2px 2px 3px rgba(0, 0, 0, 0.8), 
         -1px -1px 3px rgba(0, 0, 0, 0.8);
+        display: block;
+        width: 80%;
+        text-align: center;
+        overflow-wrap: break-word;
+        white-space: normal; /* Permite que el texto baje a otra línea */
+    }
+
+    .container-header { 
+        max-width: 80%; /* Limita el ancho para que el texto no toque los bordes */
+        margin: 0 auto; /* Centra horizontalmente */
+        padding: 10px;
+    
     }
 
     #categorias h2 {
@@ -447,20 +461,27 @@ h3 {
         margin: 15px auto; 
         width: auto; 
         padding: 10px;
-        min-width: 375px;
+        min-width: 300px;
     }
 
     .subcategoria img {
-        width: 100%; 
+        max-width: 90%; 
         height: auto; 
-        margin-bottom: 20px; 
+        margin-bottom: -30px; 
+        margin-left: 20px;
+        align-items: center;
     }
 
     .subcategoria {
         flex-direction: column;
         align-items: center;
+        min-width: 300px;
+        margin-right: 10px;
     }
 
+    .subcategoria img:hover {
+        transform: scale(1);
+    }
 
     .contenido {
         margin: 10px; 
@@ -480,7 +501,7 @@ h3 {
         padding: 0 10px;
     }
     .campo {
-        min-width: 375px;
+        min-width: 300px;
     }
     .nav-link {
         white-space: nowrap;
@@ -505,6 +526,14 @@ h3 {
     .btn-custom, .btn-secondary {
         margin-bottom: 10px; /* Añadir espacio entre los botones */
     }
+
+    html, body {
+        min-width: 300px;
+    }
+    .titulo-contenido {
+        margin-top: 10px;
+        text-align: center;
+    }
 }
     
     
@@ -521,28 +550,47 @@ h3 {
     }
 
     header {
-        background: url('../img/banner-movil.png') no-repeat center center/cover !important;
-        height: 130px;
-        background-size: cover;
-        margin: 0px;
-        background-position: center bottom; 
+        background: url('../img/banner-movil.png') no-repeat center center;
+        background-size: cover; /* Asegura que cubra toda la pantalla */
+        height: 8vb; 
+        padding: 15px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
     }
 
 
     h1 {
-        font-size: 25px;
-        top: 20%;
+        font-size: 22px;
+        top: -10%;
     }
 
     .slogan {
-        font-size: 16px;
-        top: 65%;
+        font-size: 14px;
+        word-wrap: break-word; /* Permite que el texto pase a otra línea */
+        overflow-wrap: break-word;
+        max-width: 80%;
+        margin: 0 auto;
+        top: 45%;
+        white-space: normal; /* Permite que el texto baje a otra línea */
+        padding: 2px 2px;
     }
 
     h2 {
         font-size: 20px;
-        margin: -10px 0;
         word-wrap: break-word;
+        width: 80%;
+        text-align: center;
+        overflow-wrap: break-word;
+        display: block;
+    }
+
+    .container-header { 
+        max-width: 80%; /* Limita el ancho para que el texto no toque los bordes */
+        margin: 0 auto; /* Centra horizontalmente */
+        padding: 10px;
+    
     }
 
     .contenido {
@@ -550,17 +598,27 @@ h3 {
         margin: 15px auto; 
         width: auto; 
         padding: 10px;
+        
+    }
+
+    .subcategoria {
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+        gap: 20px; 
+        margin-right: 10px;
     }
 
     .subcategoria img {
-        width: 95%; 
+        max-width: 90%; 
         height: auto; 
-        margin-bottom: 20px; 
+        margin-bottom: -20px; 
+        margin-left: 20px;
+        align-items: center;
     }
-
-    .contenido {
-        margin: 10px; 
-        padding: 10px; 
+    .subcategoria img:hover {
+        transform: scale(1);
+    
     }
 
     .texto p {
@@ -594,6 +652,21 @@ h3 {
     }
     .btn-custom, .btn-secondary {
         margin-bottom: 10px; /* Añadir espacio entre los botones */
+    }
+
+
+    html, body {
+        min-width: 300px;
+    }
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        display: flex;
+        gap: 20px;
+    }
+    .titulo-contenido {
+        margin-top: 10px;
+        text-align: center;
     }
 
 }
