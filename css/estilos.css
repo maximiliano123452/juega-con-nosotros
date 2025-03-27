@@ -8,7 +8,7 @@
 
 /*HEADER*/
 header {
-    background: url('../img/banner.png') no-repeat center center/cover;
+    background: url('../img/banner.png') no-repeat center/contain;
     height: 200px;
     display: flex;
     position: relative;
@@ -16,7 +16,8 @@ header {
     align-items: flex-start;
     padding-top: 20px;
     background-size: cover;
-    background-position: center; 
+    background-position: right;
+     
 }
 
 h1 {
@@ -25,7 +26,7 @@ h1 {
     font-size: 50px;
     position: absolute;
     top: 10%;
-    left: 20%;
+    left: 15%;
     white-space: nowrap;
 }
 
@@ -151,11 +152,24 @@ h3 {
     width: 150px;
     height: 150px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 15px;
     transition: transform 0.3s ease-in-out;
 }
 
 .categoria img:hover {
+    transform: scale(1.1);
+}
+
+.categoria2 img {
+    border: 3px solid var(--color-secundario);
+    width: auto;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.categoria2 img:hover {
     transform: scale(1.1);
 }
 
@@ -167,6 +181,18 @@ h3 {
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
     margin-left: 40px;
+    border-radius: 15px;
+}
+
+.img-detalle img{
+    max-width: 80%; 
+    height: auto; 
+    width: 100vb;
+    margin-bottom: 10px; 
+    margin-top: 10px;
+    margin-left: 5px;
+    align-items: center;
+    
 }
 
 .subcategoria img:hover {
@@ -185,6 +211,7 @@ h3 {
     max-width: 500px;
     font-family: 'Montserrat', sans-serif;
     padding: 10px;
+    margin-left: -40px;
 }
 
 .contenido {
@@ -232,6 +259,9 @@ h3 {
     gap: 15px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .contacto-form label, .registro-form label {
@@ -414,9 +444,14 @@ h3 {
     .categoria img {
         width: 150px;
     }
+    
+    .categoria2 img {
+        width: 250px;
+        border-radius: 15px;
+    }
 
     header {
-        background: url('../img/banner-movil.png') no-repeat center center/cover !important;
+        background: url('../img/banner-mid.png') no-repeat center center/cover !important;
         background-size: contain; 
         background-position: center bottom; 
         margin: 0px;
@@ -503,6 +538,7 @@ h3 {
         padding: 10px 20px; 
         text-align: left; 
         word-wrap: break-word; 
+        margin-left: 0px;
     }
 
     .contacto-form {
@@ -558,7 +594,15 @@ h3 {
     }
 
     .categoria img {
-        width: 120px;
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+    }
+
+    .categoria2 img {
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
     }
 
     header {
@@ -623,7 +667,8 @@ h3 {
 
     .subcategoria img {
         max-width: 90%; 
-        height: auto; 
+        height: 150px; 
+        width: 150px;
         margin-bottom: -20px; 
         margin-left: 20px;
         align-items: center;
@@ -633,11 +678,21 @@ h3 {
     
     }
 
+    .img-detalle img{
+        max-width: 90%; 
+        height: auto; 
+        width: auto;
+        margin-bottom: -20px; 
+        margin-left: 20px;
+        align-items: center;
+    }
+
     .texto p {
         font-size: 14px; 
         padding: 10px 20px; 
         text-align: left; 
         word-wrap: break-word; 
+        margin-left: 0px;
     }
     .contacto-form {
         max-width: 95% !important;
@@ -684,7 +739,9 @@ h3 {
         flex-direction: column;
         align-items: center;
         display: flex;
-        gap: 20px;
+        gap: 10px;
+        margin-top: -10px;
+        margin-bottom: -10px;
     }
     .titulo-contenido {
         margin-top: 10px;
