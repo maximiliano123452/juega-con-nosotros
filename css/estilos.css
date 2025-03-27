@@ -558,7 +558,8 @@ h3 {
     }
 
     .categoria img {
-        width: 120px;
+        width: 150px;
+        height: 150px;
     }
 
     header {
@@ -623,7 +624,8 @@ h3 {
 
     .subcategoria img {
         max-width: 90%; 
-        height: auto; 
+        height: 150px; 
+        width: 150px;
         margin-bottom: -20px; 
         margin-left: 20px;
         align-items: center;
@@ -631,6 +633,15 @@ h3 {
     .subcategoria img:hover {
         transform: scale(1);
     
+    }
+
+    .img-detalle img{
+        max-width: 90%; 
+        height: auto; 
+        width: auto;
+        margin-bottom: -20px; 
+        margin-left: 20px;
+        align-items: center;
     }
 
     .texto p {
