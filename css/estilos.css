@@ -445,9 +445,11 @@ h3 {
         width: 150px;
     }
     
+    
     .categoria2 img {
-        width: 250px;
-        border-radius: 15px;
+        width: 350px;
+        height: auto;
+        border-radius: 8px 8px 0 0;
     }
 
     header {
@@ -600,9 +602,9 @@ h3 {
     }
 
     .categoria2 img {
-        width: 150px;
-        height: 150px;
-        border-radius: 15px;
+        width: 200px;
+        height: auto;
+        border-radius: 8px 8px 0 0;
     }
 
     header {
