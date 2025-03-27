@@ -30,33 +30,40 @@
             </ul>
         </div>
     </nav>
-
-  <div class="contacto-container mt-5">
-    <h2 class="mb-4 text-center">Iniciar Sesión</h2>
-
-    <form id="loginForm" class="contacto-form mx-auto" style="max-width: 600px; row-gap: 1rem;">
-      <div class="mb-3">
-        <label for="emailLogin" class="form-label required">Correo Electrónico</label>
-        <input type="email" class="form-control" id="emailLogin" placeholder="tucorreo@ejemplo.com" required />
-      </div>
-
-      <div class="mb-3">
-        <label for="passwordLogin" class="form-label required">Contraseña</label>
-        <input type="password" class="form-control" id="passwordLogin" placeholder="Ingresa tu contraseña" required />
-      </div>
-
-      <div class="d-grid gap-3">
-        <button type="submit" class="btn btn-custom">Iniciar Sesión</button>
-        <div class="login-link text-center mt-4">
-        <a href="recuperar.html">¿Olvidaste tu contraseña?</a>
+    <div class="container-formulario">          
+      <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="mb-4 text-center">Iniciar Sesión</h2>
+            </div>
+    
+            <div class="col-12 col-md-8">
+                <form id="loginForm" class="contacto-form mx-auto" style="max-width: 600px;">
+                    <div class="mb-3">
+                        <label for="emailLogin" class="form-label required">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="emailLogin" placeholder="tucorreo@ejemplo.com" required/>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="passwordLogin" class="form-label required">Contraseña</label>
+                        <input type="password" class="form-control" id="passwordLogin" placeholder="Ingresa tu contraseña" required/>
+                    </div>
+    
+                    <div class="d-grid gap-3">
+                        <button type="submit" class="btn btn-custom">Iniciar Sesión</button>
+                        <div class="login-link text-center mt-4">
+                            <a href="recuperar.html">¿Olvidaste tu contraseña?</a>
+                        </div>
+                    </div>
+    
+                    <div class="login-link text-center mt-3">
+                        <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+                    </div>
+                </form>
+            </div>
         </div>
       </div>
-
-      <div class="login-link text-center mt-3">
-        <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
-      </div>
-    </form>
-  </div>
+    </div>
 
   <footer>
     <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
