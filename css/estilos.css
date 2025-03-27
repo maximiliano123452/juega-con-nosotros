@@ -184,7 +184,9 @@ h3 {
 
 .titulo-contenido {
     margin-top: 10px;
+    text-align: center;
 }
+
 
 /*FORMULARIOS*/
 .container-formulario, .registro-container {
