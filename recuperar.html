@@ -16,29 +16,40 @@
     <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="index.html">Categorías</a></li>
-      <li><a href="contacto.html">Contacto</a></li>
-      <li><a href="registro.html">Registro</a></li>
-      <li><a href="login.html">Iniciar Sesión</a></li>
-    </ul>
+  <nav class="navbar bg-dark navbar-dark">
+    <div class="container">
+      <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
+        <li class="nav-item"><a class="nav-link" href="index.html">Categorías</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        <li class="nav-item"><a class="nav-link" href="registro.html">Registro</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.html">Iniciar Sesión</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <div class="container-formulario">
-    <h2 class="mb-4">🔐 Recuperar Contraseña</h2>
-    <p>Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+  <div class="container-formulario">          
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+          <h2 class="titulo">🔐 Recuperar Contraseña</h2>
+        </div>
 
-    <form id="recuperarForm" class="contacto-form" style="max-width: 600px; margin: 0 auto;">
-      <div class="mb-3">
-        <label for="correo" class="form-label required">Correo Electrónico</label>
-        <input type="email" class="form-control" id="correo" required placeholder="tucorreo@ejemplo.com" />
+        <div class="col-12 col-md-8">
+          <form id="recuperarForm" class="contacto-form mx-auto" style="max-width: 600px;">
+            <div class="mb-3">
+              <label for="correo" class="form-label required">Correo Electrónico</label>
+              <input type="email" class="form-control" id="correo" required placeholder="tucorreo@ejemplo.com" />
+            </div>
+
+            <div class="d-grid gap-3">
+              <button type="submit" class="btn btn-custom">Enviar Enlace</button>
+              <div class="login-link text-center mt-4">
+                <p>¿Recordaste tu contraseña? <a href="login.html">Inicia sesión aquí</a></p>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <button type="submit" class="btn btn-custom">Enviar Enlace</button>
-    </form>
-
-    <div class="login-link mt-3">
-      <p>¿Recordaste tu contraseña? <a href="login.html">Inicia sesión aquí</a></p>
     </div>
   </div>
 
