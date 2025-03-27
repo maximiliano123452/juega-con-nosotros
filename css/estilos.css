@@ -159,6 +159,19 @@ h3 {
     transform: scale(1.1);
 }
 
+.categoria2 img {
+    border: 3px solid var(--color-secundario);
+    width: auto;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.categoria2 img:hover {
+    transform: scale(1.1);
+}
+
 .subcategoria img {
     border: 3px solid rgba(255, 255, 255, 0.2);
     width: 500px;
@@ -414,6 +427,10 @@ h3 {
     .categoria img {
         width: 150px;
     }
+    
+    .categoria2 img {
+        width: auto;
+    }
 
     header {
         background: url('../img/banner-movil.png') no-repeat center center/cover !important;
@@ -558,6 +575,11 @@ h3 {
     }
 
     .categoria img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .categoria2 img {
         width: 150px;
         height: 150px;
     }
