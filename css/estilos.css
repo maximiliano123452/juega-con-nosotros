@@ -132,6 +132,7 @@ h3 {
     color: var(--color-texto);
     font-size: 20px;
     margin: 20px 0;
+    text-align: center;
 }
 
 /*TAMAÑO IMAGENES*/
@@ -529,6 +530,10 @@ h3 {
     html, body {
         min-width: 300px;
     }
+    .titulo-contenido {
+        margin-top: 10px;
+        text-align: center;
+    }
 }
     
     
@@ -659,6 +664,9 @@ h3 {
         display: flex;
         gap: 20px;
     }
-
+    .titulo-contenido {
+        margin-top: 10px;
+        text-align: center;
+    }
 
 }
