@@ -16,18 +16,26 @@
         <h1>Juega con Nosotros</h1>
         <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
     </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Categorías</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
-        </ul>
-    </nav>    
+    <nav class="navbar bg-dark navbar-dark">
+        <div class="container">
+            <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
+                <li class="nav-item"><a class="nav-link" href="index.html">Categorías</a></li>
+                <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="registro.html">Registro</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Iniciar Sesión</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="perfil.html" title="Mi Perfil">
+                        <img src="img/icono-perfil.png" alt="Perfil" class="rounded-circle" width="24" height="24">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     
         <div class="contacto-container">
             <h2 class="mb-12 text-center">Formulario de Registro</h2>
         
             <form id="registroForm" class="contacto-form mx-auto" style="max-width: 600px">
-                <br>
                 <div class="mb-3">
                     <label for="nombre" class="form-label required">Nombre Completo</label>
                     <input type="text" class="form-control" id="nombre" required placeholder="Ingresa tu nombre" />
@@ -64,7 +72,7 @@
                     <button type="submit" class="btn btn-custom">Registrarse</button>
                     <button type="reset" class="btn btn-secondary">Limpiar</button>
                 </div>
-                <div class="text-center mt-3">
+                <div class="login-link text-center mt-3">
                     <a class="btn btn-secondary" href="index.html">⬅ Volver al inicio</a>
                   </div>
                   
