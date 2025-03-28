@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Juega con Nosotros - Mario Kart 8</title> 
+    <title>Juega con Nosotros - Mario Kart 8</title> 
     <link rel="stylesheet" href="../../css/estilos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,8 +12,10 @@
     
 <body>
     <header>
-        <h1>Juega con Nosotros</h1>
-        <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
+        <div class="container-header">
+            <h1>Juega con Nosotros</h1>
+            <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
+        </div>
     </header>
     <nav class="navbar bg-dark navbar-dark">
         <div class="container">
@@ -27,30 +29,40 @@
                         <img src="../../img/icono-perfil.png" alt="Perfil" class="rounded-circle" width="24" height="24">
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../carrito.html" title="Carrito de Compras">
+                        <img src="../../img/icono-carrito.png" alt="Carrito" class="rounded-circle" width="24" height="24">
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>  
-    <div class="contenido">
-        <div class="subcategoria">
-            <div class="img-detalle">
-                <img src="../../img/mariokart8deluxe.jpg" alt="Mario Kart 8 Deluxe">
-            </div>
-        <div class="texto">
-        <p>
-            <strong>Mario Kart 8 Deluxe:</strong><br>
-
-            <br>Plataformas: Nintendo Switch<br>
-
-            <br>La experiencia definitiva de Mario Kart. Corre en pistas 
-            icónicas, usa objetos estratégicos para superar a tus 
-            rivales y disfruta de la frenética acción multijugador 
-            con amigos o en línea.
-            <br>
-            <br><strong>Precio: CLP 55.000</strong>
-        </p>  
-        </div> 
-    </div> 
-</div>
+    <div class="contenedor-principal">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <!-- Imagen a la izquierda en pantallas grandes, encima en pantallas más pequeñas -->
+                <div class="col-12 col-lg-6 d-flex justify-content-center mb-4 mb-lg-0">
+                    <div class="img-detalle">
+                        <img src="../../img/mariokart8deluxe.jpg" alt="Mario Kart 8 Deluxe" class="img-fluid">
+                    </div>
+                </div>
+                <!-- Texto justificado en pantallas grandes, encima en pantallas más pequeñas -->
+                <div class="col-12 col-lg-6">
+                    <div class="texto-container">
+                        <p class="text-justify">
+                            <strong>Mario Kart 8 Deluxe:</strong><br><br>
+                            Plataformas: Nintendo Switch<br><br>
+                            La experiencia definitiva de Mario Kart. Corre en pistas 
+                            icónicas, usa objetos estratégicos para superar a tus 
+                            rivales y disfruta de la frenética acción multijugador 
+                            con amigos o en línea.<br><br>
+                            <strong>Precio: CLP 55.000</strong>
+                        </p>  
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
