@@ -8,7 +8,7 @@
 
 /*HEADER*/
 header {
-    background: url('../img/banner.png') no-repeat center center/cover;
+    background: url('../img/banner.png') no-repeat center/contain;
     height: 200px;
     display: flex;
     position: relative;
@@ -16,7 +16,8 @@ header {
     align-items: flex-start;
     padding-top: 20px;
     background-size: cover;
-    background-position: center; 
+    background-position: right;
+     
 }
 
 h1 {
@@ -25,7 +26,7 @@ h1 {
     font-size: 50px;
     position: absolute;
     top: 10%;
-    left: 20%;
+    left: 15%;
     white-space: nowrap;
 }
 
@@ -101,6 +102,16 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
+
+.titulo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600; /* Grosor del texto */
+    text-align: center; /* Centrado del texto */
+    color: var(--color-texto); /* Usando la variable de color del texto */
+    margin-bottom: 20px; /* Espaciado debajo del título */
+    margin-top: 20px;
+}
+
 /*CATEGORIAS*/
 .categorias {
     display: flex;
@@ -141,11 +152,24 @@ h3 {
     width: 150px;
     height: 150px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 15px;
     transition: transform 0.3s ease-in-out;
 }
 
 .categoria img:hover {
+    transform: scale(1.1);
+}
+
+.categoria2 img {
+    border: 3px solid var(--color-secundario);
+    width: auto;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.categoria2 img:hover {
     transform: scale(1.1);
 }
 
@@ -157,6 +181,18 @@ h3 {
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
     margin-left: 40px;
+    border-radius: 15px;
+}
+
+.img-detalle img{
+    max-width: 80%; 
+    height: auto; 
+    width: 100vb;
+    margin-bottom: 10px; 
+    margin-top: 10px;
+    margin-left: 5px;
+    align-items: center;
+    
 }
 
 .subcategoria img:hover {
@@ -175,6 +211,7 @@ h3 {
     max-width: 500px;
     font-family: 'Montserrat', sans-serif;
     padding: 10px;
+    margin-left: -40px;
 }
 
 .contenido {
@@ -195,7 +232,7 @@ h3 {
     background-color: #222b5f;
     padding: 20px;
     border-radius: 10px;
-    width: 50%;
+    width: 90%;
     margin: 0 auto;
     color: var(--color-texto);
     font-family: 'Montserrat', sans-serif;
@@ -222,6 +259,9 @@ h3 {
     gap: 15px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .contacto-form label, .registro-form label {
@@ -238,6 +278,45 @@ h3 {
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
+}
+/* Ajusta campo Rol en formulario registro */
+#rol {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    display: flex;
+}
+
+select {
+    color: gray;
+}
+
+/* Cambia el color del texto cuando el usuario selecciona una opción para rol y fecha de nacimiento */
+select:valid {
+    color: black;
+}
+
+input[type="role"] {
+    color: gray;
+}
+
+input[type="date"] {
+    color: gray;
+}
+input[type="date"]:not(:placeholder-shown) {
+    color: black;
+}
+
+
+/* Cambio de color de icono del calendario */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: grayscale(100%);
+    opacity: 0.6;
 }
 
 .contacto-form textarea, .registro-form textarea {
@@ -260,6 +339,8 @@ h3 {
 .contacto-form button:hover, .registro-form button:hover {
     background-color: #5f449a;
 }
+
+
 
 /*MENSAJES*/
 .registro-form label {
@@ -404,9 +485,16 @@ h3 {
     .categoria img {
         width: 150px;
     }
+    
+    
+    .categoria2 img {
+        width: 350px;
+        height: auto;
+        border-radius: 8px 8px 8px 8px;
+    }
 
     header {
-        background: url('../img/banner-movil.png') no-repeat center center/cover !important;
+        background: url('../img/banner-mid.png') no-repeat center center/cover !important;
         background-size: contain; 
         background-position: center bottom; 
         margin: 0px;
@@ -493,6 +581,7 @@ h3 {
         padding: 10px 20px; 
         text-align: left; 
         word-wrap: break-word; 
+        margin-left: 0px;
     }
 
     .contacto-form {
@@ -508,19 +597,22 @@ h3 {
 
     }
     .container-formulario, .registro-container {
-        text-align: center;
+        display: flex; /* Agrega flexbox */
+        flex-direction: column; /* Asegura que los elementos estén en columna */
+        justify-content: center; /* Centra verticalmente */
+        align-items: center; /* Centra horizontalmente */
+        
         background-color: #222b5f;
         padding: 20px;
         border-radius: 10px;
-        width: 50%;
-        margin: 0 auto;
+        width: 80%;
+        max-width: 600px; /* Evita que sea demasiado ancho */
+        margin: 20px auto; /* Centra en la página */
+        
         color: var(--color-texto);
         font-family: 'Montserrat', sans-serif;
         word-wrap: break-word; 
         overflow-wrap: break-word; 
-        max-width: 90%; 
-        margin-top: 10px;
-        margin-bottom: 10px;
     }
 
     .btn-custom, .btn-secondary {
@@ -546,7 +638,15 @@ h3 {
     }
 
     .categoria img {
-        width: 120px;
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+    }
+
+    .categoria2 img {
+        width: 200px;
+        height: auto;
+        border-radius: 8px 8px 8px 8px;
     }
 
     header {
@@ -611,7 +711,8 @@ h3 {
 
     .subcategoria img {
         max-width: 90%; 
-        height: auto; 
+        height: 150px; 
+        width: 150px;
         margin-bottom: -20px; 
         margin-left: 20px;
         align-items: center;
@@ -621,11 +722,21 @@ h3 {
     
     }
 
+    .img-detalle img{
+        max-width: 90%; 
+        height: auto; 
+        width: auto;
+        margin-bottom: -20px; 
+        margin-left: 20px;
+        align-items: center;
+    }
+
     .texto p {
         font-size: 14px; 
         padding: 10px 20px; 
         text-align: left; 
         word-wrap: break-word; 
+        margin-left: 0px;
     }
     .contacto-form {
         max-width: 95% !important;
@@ -640,16 +751,26 @@ h3 {
         background-color: #222b5f;
         padding: 20px;
         border-radius: 10px;
-        width: 50%;
+        width: 80%;
         margin: 0 auto;
         color: var(--color-texto);
         font-family: 'Montserrat', sans-serif;
         word-wrap: break-word; 
         overflow-wrap: break-word; 
-        max-width: 90%; 
+        max-width: 100%; 
         margin-top: 10px;
         margin-bottom: 10px;
+        justify-content: center;
+        align-items: center;
     }
+
+    .titulo {
+        text-align: center; /* Centrado del texto */
+        margin-bottom: 20px; /* Espaciado debajo del título */
+        width: 100%; /* Asegura que el título ocupe el 100% del ancho */
+        display: block; /* Asegura que el título sea un bloque que ocupe todo el ancho */
+    }
+
     .btn-custom, .btn-secondary {
         margin-bottom: 10px; /* Añadir espacio entre los botones */
     }
@@ -662,7 +783,9 @@ h3 {
         flex-direction: column;
         align-items: center;
         display: flex;
-        gap: 20px;
+        gap: 10px;
+        margin-top: -10px;
+        margin-bottom: -10px;
     }
     .titulo-contenido {
         margin-top: 10px;

@@ -32,62 +32,66 @@
             </ul>
         </div>
     </nav>
-
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6 col-lg-4 p-4 mt-5">
-                <h2 class="text-center mb-4">Formulario de Registro</h2>
-                <form id="registroForm" class="contacto-form">
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label required">Nombre Completo</label>
-                        <input type="text" class="form-control" id="nombre" required placeholder="Ingresa tu nombre"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="usuario" class="form-label required">Nombre de Usuario</label>
-                        <input type="text" class="form-control" id="usuario" required placeholder="Ingresa tu nombre de usuario"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label required">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" required placeholder="tucorreo@ejemplo.com"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label required">Contraseña</label>
-                        <input type="password" class="form-control" id="password" required placeholder="Ingresa tu contraseña"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password2" class="form-label required">Repetir Contraseña</label>
-                        <input type="password" class="form-control" id="password2" required placeholder="Repite tu contraseña"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="fechaNacimiento" class="form-label required">Fecha de Nacimiento</label>
-                        <input type="date" class="form-control" id="fechaNacimiento" required/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="direccion" class="form-label">Dirección de Despacho (Opcional)</label>
-                        <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección de despacho (opcional)"/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="rol" class="form-label required">Rol de Usuario</label>
-                        <select id="rol" class="form-control" required>
-                            <option value="">Selecciona un rol</option>
-                            <option value="administrador">Administrador</option>
-                            <option value="vendedor">Vendedor</option>
-                            <option value="cliente">Cliente</option>
-                            <option value="invitado">Invitado</option>
-                        </select>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input type="checkbox" class="form-check-input" id="terminos" required/>
-                        <label class="form-check-label required" for="terminos">Acepto los términos y condiciones</label>
-                    </div>
-                    <div class="d-grid gap-3">
-                        <button type="submit" class="btn btn-custom">Registrarse</button>
-                        <button type="reset" class="btn btn-secondary">Limpiar</button>
-                    </div>
-                    <div class="login-link text-center mt-3">
-                        <a class="btn btn-secondary" href="index.html">⬅ Volver al inicio</a>
-                    </div>
-                </form>
+    <div class="container-formulario">  
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4 p-4 mt-5 mx-auto">
+                    <div class="col-12 d-flex justify-content-center">
+                    <h2 class="titulo">Formulario de Registro</h2>
+                    
+                    <form id="registroForm" class="contacto-form">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label required">Nombre Completo</label>
+                            <input type="text" class="form-control" id="nombre" required placeholder="Ingresa tu nombre"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="usuario" class="form-label required">Nombre de Usuario</label>
+                            <input type="text" class="form-control" id="usuario" required placeholder="Ingresa tu nombre de usuario"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label required">Correo Electrónico</label>
+                            <input type="email" class="form-control" id="email" required placeholder="tucorreo@ejemplo.com"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label required">Contraseña</label>
+                            <input type="password" class="form-control" id="password" required placeholder="Ingresa tu contraseña"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password2" class="form-label required">Repetir Contraseña</label>
+                            <input type="password" class="form-control" id="password2" required placeholder="Repite tu contraseña"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaNacimiento" class="form-label required">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" required/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label">Dirección de Despacho (Opcional)</label>
+                            <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección de despacho (opcional)"/>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rol" class="form-label required">Rol de Usuario</label>
+                            <select id="rol" class="form-control form-select-lg" required>
+                                <option value="">Selecciona un rol</option>
+                                <option value="administrador">Administrador</option>
+                                <option value="vendedor">Vendedor</option>
+                                <option value="cliente">Cliente</option>
+                                <option value="invitado">Invitado</option>
+                            </select>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="terminos" required/>
+                            <label class="form-check-label required" for="terminos">Acepto los términos y condiciones</label>
+                        </div>
+                        <div class="d-grid gap-3">
+                            <button type="submit" class="btn btn-custom">Registrarse</button>
+                            <button type="reset" class="btn btn-secondary">Limpiar</button>
+                        </div>
+                        <div class="login-link text-center mt-3">
+                            <a class="btn btn-secondary" href="index.html">⬅ Volver al inicio</a>
+                        </div>
+                    </form>
+                </div>
+                </div>
             </div>
         </div>
     </div>
