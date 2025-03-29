@@ -97,6 +97,13 @@ nav ul li a {
     transition: 0.3s;
 }
 
+nav ul li a img {
+    display: inline;
+    width: 22px;
+    height: 22px;
+    align-items: center;
+}
+
 nav ul li a:hover {
     background-color: #5f449a;
     border-radius: 5px;

@@ -516,7 +516,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         background-color: rgba(135, 108, 194, 0.7); /* Fondo violeta con transparencia */
         padding: 2px 2px;
         border-radius: 15px;
-        text-shadow: /* Sombra para el texto */
+        text-shadow:  /* Sombra para el texto */
         2px 2px 3px rgba(0, 0, 0, 0.8), 
         -1px -1px 3px rgba(0, 0, 0, 0.8);
         display: block;
