@@ -458,16 +458,16 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .botones button[type="submit"] {
     background-color: #4CAF50;
-    color: white;
+    color: #f2f4f4;
 }
 
 .botones button[type="reset"] {
     background-color: #FF5733;
-    color: white;
+    color: #f2f4f4;
 }
 
 .enlace-blanco {
-    color: white;
+    color: #f2f4f4;
     text-decoration: none;
     display: inline-block;
     word-break: break-word; 
@@ -530,7 +530,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .botones button {
     background-color: var(--violeta-oscuro);
-    color: white;
+    color: #f2f4f4;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -597,6 +597,37 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 
+/*BOTON AGREGAR AL CARRITO*/
+
+.boton-agregar-carrito {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-agregar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #5f449a;
+    color: #f2f4f4;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    gap: 8px;
+}
+
+.btn-agregar:hover {
+    background-color: #4a2f7c;
+}
+
+.agregar-carrito {
+    width: 20px;
+    height: 20px;
+}
 
 
 
