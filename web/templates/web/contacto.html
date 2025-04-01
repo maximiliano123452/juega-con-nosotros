@@ -1,21 +1,19 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juega con Nosotros - Tienda de Videojuegos</title> 
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" href="css/estilos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  </head>
+</head>
 <body>
     <header>
         <h1>Juega con Nosotros</h1>
         <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
     </header>
-
     <nav class="navbar bg-dark navbar-dark">
         <div class="container">
             <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
@@ -25,14 +23,14 @@
                 <li class="nav-item"><a class="nav-link" href="login.html">Iniciar Sesión</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="perfil.html" title="Mi Perfil">
-                        <img src="{% static 'img/icono-perfil.png' %}" alt="Perfil" class="rounded-circle" width="24" height="24">
+                        <img src="img/icono-perfil.png" alt="Perfil" class="rounded-circle" width="24" height="24">
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="carrito.html" title="Carrito de Compras">
-                      <img src="{% static 'img/icono-carrito.png' %}" alt="Carrito" class="rounded-circle" width="24" height="24">
+                      <img src="img/icono-carrito.png" alt="Carrito" class="rounded-circle" width="24" height="24">
                     </a>
-                </li>
+                  </li>
             </ul>
         </div>
     </nav>
@@ -42,11 +40,10 @@
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
                     <h2 class="titulo">📞 Contáctanos</h2>
-                </div>
-                <div>
-                    <p class="mb-4 text-center">Si tienes consultas o sugerencias, completa el formulario o envíanos un correo a
-                        <a href="mailto:ventas@jcn.cl" class="enlace-blanco">ventas@jcn.cl</a> 
-                    </p>
+                    <div>
+                        <p class="mb-4 text-center">Si tienes consultas o sugerencias, completa el formulario o envíanos un correo a
+                        <a href="mailto:ventas@jcn.cl" class="enlace-blanco">ventas@jcn.cl</a> </p>
+                    </div>
                 </div>
           
                 <div class="col-md-8">
@@ -63,6 +60,7 @@
                             <label for="mensaje" class="form-label required">Mensaje</label>
                             <textarea id="mensaje" name="mensaje" class="form-control" placeholder="Escribe tu mensaje aquí..." required rows="6"></textarea>
                         </div>
+        
                         <button type="submit" class="btn btn-custom">Enviar Mensaje</button>
                     </form>
                 </div>
@@ -74,11 +72,9 @@
         <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
         <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
     </footer>
-
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
-
 
 
 

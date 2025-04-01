@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juega con Nosotros - Tienda de Videojuegos</title> 
+    <title>Juega con Nosotros - Carrito de Compras</title> 
     <link rel="stylesheet" href="css/estilos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,44 +25,34 @@
                 <li class="nav-item"><a class="nav-link" href="login.html">Iniciar Sesión</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="perfil.html" title="Mi Perfil">
-                        <img src="{% static 'img/icono-perfil.png' %}" alt="Perfil" class="rounded-circle">
+                        <img src="img/icono-perfil.png" alt="Perfil" class="rounded-circle">
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="carrito.html" title="Carrito de Compras">
-                        <img src="{% static 'img/icono-carrito.png' %}" alt="Carrito" class="rounded-circle">
+                        <img src="img/icono-carrito.png" alt="Carrito" class="rounded-circle">
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="contenedor-principal">
-        <section id="categorias">
-            <br>
-            <h3>Categorías de Videojuegos</h3>
-            <div class="categorias">
-                <div class="categoria" onclick="location.href='categorias/shooters.html'">
-                    <img src="{% static 'img/shooters.jpg' %}" alt="Shooters">
-                    <h3>Shooters</h3>
-                </div>
-                <div class="categoria" onclick="location.href='categorias/mundoabierto.html'">
-                    <img src="{% static 'img/mundo-abierto.jpg' %}" alt="Mundo Abierto">
-                    <h3>Mundo Abierto</h3>
-                </div>
-                <div class="categoria" onclick="location.href='categorias/cozy.html'">
-                    <img src="{% static 'img/cozy.jpg' %}" alt="Cozy">
-                    <h3>Cozy</h3>
-                </div>
-                <div class="categoria" onclick="location.href='categorias/carreras.html'">
-                    <img src="{% static 'img/carreras.jpg' %} " alt="Carreras">
-                    <h3>Carreras</h3>
-                </div>
-                <div class="categoria" onclick="location.href='categorias/terror.html'">
-                    <img src="{% static 'img/terror.jpg' %}" alt="Terror">
-                    <h3>Terror</h3>
-                </div>
-            </div>
-        </section>
+       
+      <div class="col-12 d-flex justify-content-center">
+        <h2 class="titulo">🛒 Carrito de Compras</h2>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="contenido">
+          <p>
+            Tu carrito está vacío por ahora.<br> ¡Explora nuestras categorías y agrega tus juegos favoritos!
+          </p>
+            <div class="carrito-link mt-3 text-center">
+              <p><a href="index.html">Volver al inicio</a></p>
+          </div>
+        </div>
+      </div>
+
+
     </div>
     
 
