@@ -58,11 +58,11 @@
 
         <section id="categorias">
             <div class="categorias">
-                <div class="categoria2" onclick="location.href='{% static 'juegos/cozy/stardewvalley.html' %}'">
+                <div class="categoria2" onclick="location.href='{% url 'stardewvalley' %}'">
                     <img src="{% static 'img/stardewvalley.jpg' %}" alt="Stardew Valley">
                     <h3>Stardew Valley</h3>
                 </div>
-                <div class="categoria2" onclick="location.href='{% static 'juegos/cozy/spiritfarer.html' %}'">
+                <div class="categoria2" onclick="location.href='{% url 'spiritfarer' %}'">
                     <img src="{% static 'img/spiritfarer.jpg' %}" alt="Spiritfarer">
                     <h3>Spiritfarer</h3>
                 </div>
@@ -76,3 +76,4 @@
     </footer>
 </body> 
 </html>
+

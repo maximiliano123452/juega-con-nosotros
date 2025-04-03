@@ -58,11 +58,11 @@
 
         <section id="categorias">
             <div class="categorias">
-                <div class="categoria2" onclick="location.href='{% static 'juegos/carreras/crashteamracing.html' %}'">
+                <div class="categoria2" onclick="location.href='{% url 'crashteamracing' %}'">
                     <img src="{% static 'img/crashteamracing.jpg' %}" alt="Crash Team Racing Nitro-Fueled">
                     <h3>Crash Team Racing Nitro-Fueled</h3>
                 </div>
-                <div class="categoria2" onclick="location.href='{% static 'juegos/carreras/mariokart8deluxe.html' %}'">
+                <div class="categoria2" onclick="location.href='{% url 'mariokart8deluxe' %}'">
                     <img src="{% static 'img/mariokart8deluxe.jpg' %}" alt="Mario Kart 8 Deluxe">
                     <h3>Mario Kart 8 Deluxe</h3>
                 </div>
@@ -76,3 +76,4 @@
     </footer>
 </body>
 </html>
+
