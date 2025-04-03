@@ -1,14 +1,18 @@
 from pathlib import Path
 import os
 
+# BASE_DIR es la raíz del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Clave secreta (para desarrollo está bien)
 SECRET_KEY = 'django-insecure-vw$(fv*vnm_$)yixzaz7wl0re8%cqo54x_n-14%klu5vx##h_v'
 
+# Activa modo desarrollo (¡no para producción!)
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Apps instaladas
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -16,9 +20,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web',  # Tu aplicación principal
+    'web',  # Tu app principal
 ]
 
+# Middlewares que usa Django
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -29,12 +34,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL principal
 ROOT_URLCONF = 'tienda_juegos.urls'
 
+# Configuración de plantillas HTML
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Usa [] porque estás usando APP_DIRS
+        'DIRS': [],  # Django buscará plantillas en templates/ dentro de las apps
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -47,8 +54,10 @@ TEMPLATES = [
     },
 ]
 
+# Aplicación WSGI
 WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 
+# Configuración de base de datos (por defecto SQLite)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -56,6 +65,7 @@ DATABASES = {
     }
 }
 
+# Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -71,16 +81,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+# Configuración regional
+LANGUAGE_CODE = 'es-cl'
+TIME_ZONE = 'America/Santiago'
 USE_I18N = True
 USE_TZ = True
 
-# Archivos estáticos
+# ✅ Archivos estáticos (CSS, JS, imágenes)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'web/static'),
 ]
+
+# ✅ Archivos subidos por usuarios (opcional)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Por ahora no hay configuración de correo ni autenticación extra
 
 
 

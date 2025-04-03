@@ -5,9 +5,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('web.urls')),
+    path('', include('web.urls')),  # Ruta principal apunta a tu app web
 ]
 
+# ✅ Esto permite servir archivos estáticos durante el desarrollo
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
 
