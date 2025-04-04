@@ -14,8 +14,8 @@ urlpatterns = [
     # Rutas para las categorías
     path('categorias/carreras/', views.categoria_carreras, name='categoria_carreras'),
     path('categorias/cozy/', views.categoria_cozy, name='categoria_cozy'),
-    path('categorias/mundoabierto/', views.categoria_mundoabierto, name='categoria_mundoabierto'),
-    path('categorias/shooters/', views.categoria_shooters, name='categoria_shooters'),
+    path('categorias/mundo_abierto/', views.categoria_mundoabierto, name='categoria_mundoabierto'),
+    path('categorias/shooters/', views.categoria_shooters, name='categoria_shooters'), 
     path('categorias/terror/', views.categoria_terror, name='categoria_terror'),
 
     # Rutas para los juegos - Carreras
