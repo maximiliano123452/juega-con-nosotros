@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -68,22 +69,9 @@
         <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
     </footer>
 
-    <script>
-      $(document).ready(function () {
-        $("#recuperarForm").submit(function (e) {
-          e.preventDefault();
-          const email = $("#correo").val().trim();
-          const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
-          
-          if (!emailRegex.test(email)) {
-            alert("Por favor, ingresa un correo válido.");
-          } else {
-            alert("Enlace de recuperación enviado a tu correo.");
-            $("#recuperarForm")[0].reset();
-          }
-        });
-      });
-    </script>
+    
+  <script src="js/script.js"></script>
+      
 </body> 
 </html>
 
