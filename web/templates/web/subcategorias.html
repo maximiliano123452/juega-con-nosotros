@@ -1,22 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juega con Nosotros - Tienda de Videojuegos</title>
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Juega con Nosotros - Tienda de Videojuegos</title>
+        <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
 
 <body>
     <header>
         <h1>Juega con Nosotros</h1>
         <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
     </header>
-    
+
     <nav class="navbar bg-dark navbar-dark">
         <div class="container">
             <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
@@ -39,17 +39,22 @@
     </nav>
 
     <div class="contenedor-principal">
-        <section id="categorias">
-            <br>
-            <h3>Categorías de Videojuegos</h3>
-            <div class="categorias">
-                {% for categoria_id, categoria in categorias.items %}
-                <div class="categoria" onclick="location.href='{% url 'subcategoria' categoria_id %}'">
-                    <img src="{{ categoria.imagen }}" alt="{{ categoria.nombre }}">
-                    <h3>{{ categoria.titulo }}</h3>
-                </div>
-                {% endfor %}
+        <section id="categoria-info">
+            <div class="categoria-info">
+                <h3>{{ categoria.lema }}</h3>
+                <p>{{ categoria.descripcion }}</p>
             </div>
+            <section id="categorias">
+                <div class="categorias">
+                    <!-- Mostrar los juegos de esta categoría -->
+                    {% for juego_id, juego in juegos.items %}
+                    <div class="categoria2" onclick="location.href='{% url 'detalle_juego' juego_id %}'">
+                        <img src="{{ juego.imagen }}" alt="{{ juego.titulo }}">
+                        <h3>{{ juego.titulo }}</h3>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
         </section>
     </div>
 
