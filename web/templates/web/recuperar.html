@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juega con Nosotros - Recuperar Contraseña</title> 
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -17,26 +18,27 @@
         <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
     </header>
     
-    <nav class="navbar bg-dark navbar-dark">
+   <nav class="navbar bg-dark navbar-dark">
         <div class="container">
             <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
-                <li class="nav-item"><a class="nav-link" href="index.html">Categorías</a></li>
-                <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                <li class="nav-item"><a class="nav-link" href="registro.html">Registro</a></li>
-                <li class="nav-item"><a class="nav-link" href="login.html">Iniciar Sesión</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Categorías</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="perfil.html" title="Mi Perfil">
-                        <img src="img/icono-perfil.png" alt="Perfil" class="rounded-circle">
+                    <a class="nav-link" href="{% url 'perfil' %}" title="Mi Perfil">
+                        <img src="{% static 'img/icono-perfil.png' %}" alt="Perfil" class="rounded-circle" width="24" height="24">
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="carrito.html" title="Carrito de Compras">
-                        <img src="img/icono-carrito.png" alt="Carrito" class="rounded-circle">
+                    <a class="nav-link" href="{% url 'carrito' %}" title="Carrito de Compras">
+                      <img src="{% static 'img/icono-carrito.png' %}" alt="Carrito" class="rounded-circle" width="24" height="24">
                     </a>
-                </li>
+                  </li>
             </ul>
         </div>
     </nav>
+
     <div class="container-formulario">          
       <div class="container mt-5">
         <div class="row">
@@ -54,7 +56,7 @@
               <div class="d-grid gap-3">
                 <button type="submit" class="btn btn-custom">Enviar Enlace</button>
                 <div class="login-link text-center mt-4">
-                  <p>¿Recordaste tu contraseña? <a href="login.html">Inicia sesión aquí</a></p>
+                  <p>¿Recordaste tu contraseña? <a href="{% url 'login' %}">Inicia sesión aquí</a></p>
                 </div>
               </div>
             </form>
@@ -70,7 +72,7 @@
     </footer>
 
     
-  <script src="js/script.js"></script>
+  <script src="{% static 'js/script.js' %}"></script>
       
 </body> 
 </html>
