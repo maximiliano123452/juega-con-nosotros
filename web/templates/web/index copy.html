@@ -39,14 +39,18 @@
     </nav>
 
     <div class="contenedor-principal">
-        <div class="categorias">
-            {% for categoria in categorias %}
-            <div class="categoria" onclick="location.href='{% url 'subcategoria' categoria.id %}'">
-                <img src="{{ categoria.imagen }}" alt="{{ categoria.nombre }}">
-                <h3>{{ categoria.titulo }}</h3>
+        <section id="categorias">
+            <br>
+            <h3>Categorías de Videojuegos</h3>
+            <div class="categorias">
+                {% for categoria_id, categoria in categorias.items %}
+                <div class="categoria" onclick="location.href='{% url 'subcategoria' categoria_id %}'">
+                    <img src="{{ categoria.imagen }}" alt="{{ categoria.nombre }}">
+                    <h3>{{ categoria.titulo }}</h3>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        </section>
     </div>
 
     <footer>
