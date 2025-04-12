@@ -12,7 +12,7 @@ class Categoria(models.Model):
 
 class Juego(models.Model):
     nombre = models.CharField(max_length=100)
-    descripcion = models.TextField(max_length=500)
+    descripcion = models.TextField()
     precio = models.IntegerField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True)
     plataformas = models.CharField(max_length=255, null=True, blank=True)
