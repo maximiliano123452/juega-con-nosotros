@@ -1,5 +1,12 @@
-from django.shortcuts import render, get_object_or_404
-from core.models import Categoria, Juego
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from core.models import Categoria, Juego, Usuario
+from django.http import JsonResponse
+from django.contrib.auth.hashers import make_password 
+from django.utils import timezone
+from datetime import datetime
+
+
 
 # Vistas principales
 def index(request):
@@ -9,8 +16,52 @@ def index(request):
 def login(request):
     return render(request, 'web/login.html')
 
+# Vista para cargar el formulario de registro
 def registro(request):
     return render(request, 'web/registro.html')
+
+
+# Vista para manejar el registro via AJAX
+def registro_ajax(request):
+    if request.method == "POST" and request.is_ajax():
+        try:
+            nombre = request.POST.get('nombre_completo')
+            usuario = request.POST.get('nombre_usuario')
+            email = request.POST.get('correo_electronico')
+            password = request.POST.get('contrasena')
+            password_repetir = request.POST.get('repetir_contrasena')
+            fecha_nacimiento = request.POST.get('fecha_nacimiento')
+            direccion = request.POST.get('direccion_despacho')
+            rol = request.POST.get('rol')
+
+            print(f"Datos recibidos: {nombre}, {usuario}, {email}, {password}, {fecha_nacimiento}, {direccion}, {rol}")
+
+            # Validación de contraseñas
+            if password != password_repetir:
+                return JsonResponse({"success": False, "message": "Las contraseñas no coinciden"})
+
+            # Validación de otros campos si es necesario
+            if not nombre or not usuario or not email:
+                return JsonResponse({"success": False, "message": "Todos los campos son obligatorios"})
+
+            # Crear el usuario
+            contrasena_encriptada = make_password(password)
+            usuario = Usuario.objects.create(
+                nombre_completo=nombre,
+                nombre_usuario=usuario,
+                correo_electronico=email,
+                contrasena=contrasena_encriptada,
+                fecha_nacimiento=fecha_nacimiento,
+                direccion_despacho=direccion,
+                rol=rol
+            )
+            # Si todo es correcto, responde con éxito
+            return JsonResponse({"success": True, "message": "¡Registro exitoso! Ahora puedes iniciar sesión."})
+        except Exception as e:
+            # Si hay algún error, lo manejas aquí
+            return JsonResponse({"success": False, "message": f"Error: {str(e)}"})
+    return JsonResponse({"success": False, "message": "Solicitud no válida."})
+
 
 def perfil(request):
     return render(request, 'web/perfil.html')
