@@ -20,7 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web',  # Tu app principal
+    'web',  # App principal - contiene pagina web
+    'core', # App para base de datos
 ]
 
 # Middlewares que usa Django
@@ -57,13 +58,26 @@ TEMPLATES = [
 # Aplicación WSGI
 WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 
-# Configuración de base de datos (por defecto SQLite)
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  
     }
 }
+
+
+# Configuración de base de datos (Oracle)
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.oracle',
+   #     'NAME': 'XE',  # o tu cadena TNS
+    #    'USER': 'user_prueba',
+     #   'PASSWORD': 'Prueba1234567!',
+      #  'HOST': 'localhost',
+       # 'PORT': '1521',
+    #}
+#}
 
 # Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
