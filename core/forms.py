@@ -1,7 +1,9 @@
 from django import forms
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from .models import Usuario
 
+
+# Formulario de registro de usuario
 class UsuarioForm(forms.ModelForm):
     contrasena = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': 'Contraseña', 'class': 'form-control'}),
@@ -51,3 +53,17 @@ class UsuarioForm(forms.ModelForm):
         if commit:
             usuario.save()
         return usuario
+
+
+
+# Formulario de inicio de sesión
+
+class LoginForm(forms.Form):
+    correo_electronico = forms.EmailField(
+        label="Correo Electrónico", 
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'tucorreo@ejemplo.com'})
+    )
+    contrasena = forms.CharField(
+        label="Contraseña", 
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Ingresa tu contraseña'})
+    )
