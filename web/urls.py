@@ -13,12 +13,16 @@ urlpatterns = [
     path('contacto/', views.contacto, name='contacto'),
     path('carrito/', views.carrito, name='carrito'),
     path('registro/', views.registro, name='registro'),
-    
+
+    # Vista protegida solo para administradores
+    path('admin/usuarios/', views.admin_usuarios, name='admin_usuarios'),
+
     # Ruta dinámica para las categorías
     path('categoria/<int:categoria_id>/', views.subcategoria, name='subcategoria'),
     
     # Ruta dinámica para juegos
     path('juego/<int:juego_id>/', views.detalle_juego, name='detalle_juego'),
 ]
+
 
 

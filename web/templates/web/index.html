@@ -26,10 +26,21 @@
                 {% if not usuario_nombre %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+
                 {% endif %}
 
                 {% if usuario_nombre %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+
+                
+                {% if usuario_rol == 'administrador' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_usuarios' %}" title="Admin Usuarios">
+                        👤 Admin Usuarios
+                    </a>
+                </li>
+                {% endif %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'perfil' %}" title="Mi Perfil">
                         <img src="{% static 'img/icono-perfil.png' %}" alt="Perfil" class="rounded-circle">
@@ -74,4 +85,5 @@
     </footer>
 </body> 
 </html>
+
 

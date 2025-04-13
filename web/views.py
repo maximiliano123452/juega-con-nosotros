@@ -117,6 +117,19 @@ def recuperar(request):
     })
 
 
+# Vista de administración solo para el rol administrador
+def admin_usuarios(request):
+    if not request.session.get('usuario_id'):
+        return redirect('login')
+
+    usuario_actual = Usuario.objects.get(id=request.session['usuario_id'])
+
+    if usuario_actual.rol != 'administrador':
+        return render(request, 'web/error_permiso.html', status=403)
+
+    usuarios = Usuario.objects.all()
+    return render(request, 'web/admin_usuarios.html', {'usuarios': usuarios})
+
 # Vistas por categoría 
 def categoria_carreras(request):
     categoria = get_object_or_404(Categoria, nombre__iexact="Carreras")
