@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('web.urls')),  # Ruta principal apunta a tu app web
     path('core/', include('core.urls')),  # Ruta para la app core
+    #path('registro/', include('web.urls')), 
 ]
 
 # ✅ Esto permite servir archivos estáticos durante el desarrollo

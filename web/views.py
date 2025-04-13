@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password 
 from django.utils import timezone
 from datetime import datetime
-
+from core.forms import UsuarioForm
 
 
 # Vistas principales
@@ -16,52 +16,34 @@ def index(request):
 def login(request):
     return render(request, 'web/login.html')
 
-# Vista para cargar el formulario de registro
+
+# Vista de formulario de registro
 def registro(request):
-    return render(request, 'web/registro.html')
+    form = UsuarioForm()  # Instancia del formulario
+    return render(request, 'web/registro.html', {'form': form})
 
+# Vista para el formulario de registro (manejo completo con validación)
+def formulario_registro(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Cambia esto a donde quieras redirigir tras el registro
+    else:
+        form = UsuarioForm()
+    
+    return render(request, 'registro.html', {'form': form})
 
-# Vista para manejar el registro via AJAX
+# Vista para manejar el formulario de registro via AJAX
 def registro_ajax(request):
-    if request.method == "POST" and request.is_ajax():
-        try:
-            nombre = request.POST.get('nombre_completo')
-            usuario = request.POST.get('nombre_usuario')
-            email = request.POST.get('correo_electronico')
-            password = request.POST.get('contrasena')
-            password_repetir = request.POST.get('repetir_contrasena')
-            fecha_nacimiento = request.POST.get('fecha_nacimiento')
-            direccion = request.POST.get('direccion_despacho')
-            rol = request.POST.get('rol')
-
-            print(f"Datos recibidos: {nombre}, {usuario}, {email}, {password}, {fecha_nacimiento}, {direccion}, {rol}")
-
-            # Validación de contraseñas
-            if password != password_repetir:
-                return JsonResponse({"success": False, "message": "Las contraseñas no coinciden"})
-
-            # Validación de otros campos si es necesario
-            if not nombre or not usuario or not email:
-                return JsonResponse({"success": False, "message": "Todos los campos son obligatorios"})
-
-            # Crear el usuario
-            contrasena_encriptada = make_password(password)
-            usuario = Usuario.objects.create(
-                nombre_completo=nombre,
-                nombre_usuario=usuario,
-                correo_electronico=email,
-                contrasena=contrasena_encriptada,
-                fecha_nacimiento=fecha_nacimiento,
-                direccion_despacho=direccion,
-                rol=rol
-            )
-            # Si todo es correcto, responde con éxito
-            return JsonResponse({"success": True, "message": "¡Registro exitoso! Ahora puedes iniciar sesión."})
-        except Exception as e:
-            # Si hay algún error, lo manejas aquí
-            return JsonResponse({"success": False, "message": f"Error: {str(e)}"})
-    return JsonResponse({"success": False, "message": "Solicitud no válida."})
-
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 def perfil(request):
     return render(request, 'web/perfil.html')
@@ -76,7 +58,6 @@ def carrito(request):
     return render(request, 'web/carrito.html')
 
 # Vistas por categoría (podrías eliminarlas si usas solo `subcategoria`)
-
 def categoria_carreras(request):
     categoria = get_object_or_404(Categoria, nombre__iexact="Carreras")
     juegos = Juego.objects.filter(categoria=categoria)
