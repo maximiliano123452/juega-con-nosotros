@@ -7,27 +7,20 @@ class Categoria(models.Model):
     descripcion = models.TextField()
     imagen = models.CharField(max_length=255)  # Ruta relativa a la imagen en static/img
 
-    class Meta:
-        db_table = 'CATEGORIA' 
-
     def __str__(self):
         return self.titulo
 
 class Juego(models.Model):
     nombre = models.CharField(max_length=100)
-    descripcion = models.CharField(max_length=500)
+    descripcion = models.TextField()
     precio = models.IntegerField()
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    plataformas = models.CharField(max_length=255)
-    imagen = models.CharField(max_length=255)
-   
-    class Meta:
-        db_table = 'JUEGO' 
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, null=True, blank=True)
+    plataformas = models.CharField(max_length=255, null=True, blank=True)
+    imagen = models.CharField(max_length=255, null=True, blank=True)  # Permitir null y blank
 
     def __str__(self):
         return self.nombre
     
-
 
 class Usuario(models.Model):
     nombre_completo = models.CharField(max_length=200)
@@ -47,6 +40,5 @@ class Usuario(models.Model):
         return self.nombre_usuario
 
     class Meta:
-        db_table = 'USUARIO' 
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuarios'

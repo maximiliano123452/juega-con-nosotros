@@ -59,23 +59,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 
 
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3',
-   #     'NAME': BASE_DIR / 'db.sqlite3',  
-    #}
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',  
+    }
+}
 
 
 # Configuración de base de datos (Oracle)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'ljmkn6ankifgga4w_low',
-        'USER': 'user_prueba',
-        'PASSWORD': 'Prueba1234567!',
-    }
-}
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.oracle',
+   #     'NAME': 'XE',  # o tu cadena TNS
+    #    'USER': 'user_prueba',
+     #   'PASSWORD': 'Prueba1234567!',
+      #  'HOST': 'localhost',
+       # 'PORT': '1521',
+    #}
+#}
 
 # Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [

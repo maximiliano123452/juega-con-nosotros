@@ -17,7 +17,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     $('#mensaje-login').html(`<div class="alert alert-success" role="alert">${response.message}</div>`);
-                    setTimeout(() => window.location.href = '/perfil/', 2000);
+                    setTimeout(() => window.location.href = '/', 2000);
                 } else {
                     $('#mensaje-login').html(`<div class="alert alert-danger" role="alert">${response.error}</div>`);
                 }
