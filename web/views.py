@@ -10,12 +10,20 @@ from core.forms import UsuarioForm, LoginForm
 # Vistas principales
 def index(request):
     categorias = Categoria.objects.all()
-    return render(request, 'web/index.html', {'categorias': categorias})
+    usuario_nombre = None
+    if request.session.get('usuario_id'):
+        try:
+            usuario = Usuario.objects.get(id=request.session['usuario_id'])
+            usuario_nombre = usuario.nombre_usuario
+        except Usuario.DoesNotExist:
+            pass
 
-
+    return render(request, 'web/index.html', {
+        'categorias': categorias,
+        'usuario_nombre': usuario_nombre
+    })
 
 # Vista de formulario de inicio de sesión
-
 def login(request):
     form = LoginForm()  # Crear una instancia del formulario
     return render(request, 'web/login.html', {'form': form})
@@ -23,31 +31,26 @@ def login(request):
 # Vista para manejar el formulario de inicio de sesión via AJAX
 def login_ajax(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)  # Crear el formulario con los datos enviados
-        if form.is_valid():  # Validar los datos del formulario
+        form = LoginForm(request.POST)
+        if form.is_valid():
             correo = form.cleaned_data['correo_electronico']
             contrasena = form.cleaned_data['contrasena']
-
             try:
                 usuario = Usuario.objects.get(correo_electronico=correo)
                 if check_password(contrasena, usuario.contrasena):
-                    request.session['usuario_id'] = usuario.id  # Guardamos el ID en sesión
+                    request.session['usuario_id'] = usuario.id
                     return JsonResponse({'success': True, 'message': 'Inicio de Sesión Exitoso, redirigiendo al perfil'})
                 else:
-                         return JsonResponse({'success': False, 'error': 'Contraseña incorrecta'})
+                    return JsonResponse({'success': False, 'error': 'Contraseña incorrecta'})
             except Usuario.DoesNotExist:
                 return JsonResponse({'success': False, 'error': 'Usuario no encontrado'})
         else:
             return JsonResponse({'success': False, 'error': 'Datos del formulario inválidos'})
-
     return JsonResponse({'success': False, 'error': 'Método inválido'})
 
-
-
 # Vista de formulario de registro
-
 def registro(request):
-    form = UsuarioForm()  # Instancia del formulario
+    form = UsuarioForm()
     return render(request, 'web/registro.html', {'form': form})
 
 # Vista para el formulario de registro
@@ -56,10 +59,9 @@ def formulario_registro(request):
         form = UsuarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # Cambia esto a donde quieras redirigir tras el registro
+            return redirect('login')
     else:
         form = UsuarioForm()
-    
     return render(request, 'registro.html', {'form': form})
 
 # Vista para manejar el formulario de registro via AJAX

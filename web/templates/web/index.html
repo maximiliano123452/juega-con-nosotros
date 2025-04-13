@@ -38,6 +38,12 @@
         </div>
     </nav>
 
+    {% if usuario_nombre %}
+    <div class="bienvenida" style="background-color: #5f449a; color: white; text-align: center; padding: 10px; font-size: 18px;">
+        👋 Bienvenido, <strong>{{ usuario_nombre }}</strong>!
+    </div>
+    {% endif %}
+
     <div class="contenedor-principal">
         <div class="categorias">
             {% for categoria in categorias %}
@@ -55,3 +61,4 @@
     </footer>
 </body> 
 </html>
+
