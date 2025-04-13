@@ -1,16 +1,77 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from core.models import Categoria, Juego, Usuario
+from django.http import JsonResponse
+from django.contrib.auth.hashers import check_password
+from django.utils import timezone
+from datetime import datetime
+from core.forms import UsuarioForm, LoginForm
 
 # Vistas principales
 def index(request):
-    return render(request, 'web/index.html', {
-        "categorias": CATEGORIAS
-    })
+    categorias = Categoria.objects.all()
+    return render(request, 'web/index.html', {'categorias': categorias})
+
+
+
+# Vista de formulario de inicio de sesión
 
 def login(request):
-    return render(request, 'web/login.html')
+    form = LoginForm()  # Crear una instancia del formulario
+    return render(request, 'web/login.html', {'form': form})
+
+# Vista para manejar el formulario de inicio de sesión via AJAX
+def login_ajax(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)  # Crear el formulario con los datos enviados
+        if form.is_valid():  # Validar los datos del formulario
+            correo = form.cleaned_data['correo_electronico']
+            contrasena = form.cleaned_data['contrasena']
+
+            try:
+                usuario = Usuario.objects.get(correo_electronico=correo)
+                if check_password(contrasena, usuario.contrasena):
+                    request.session['usuario_id'] = usuario.id  # Guardamos el ID en sesión
+                    return JsonResponse({'success': True, 'message': 'Inicio de Sesión Exitoso, redirigiendo al perfil'})
+                else:
+                         return JsonResponse({'success': False, 'error': 'Contraseña incorrecta'})
+            except Usuario.DoesNotExist:
+                return JsonResponse({'success': False, 'error': 'Usuario no encontrado'})
+        else:
+            return JsonResponse({'success': False, 'error': 'Datos del formulario inválidos'})
+
+    return JsonResponse({'success': False, 'error': 'Método inválido'})
+
+
+
+# Vista de formulario de registro
 
 def registro(request):
-    return render(request, 'web/registro.html')
+    form = UsuarioForm()  # Instancia del formulario
+    return render(request, 'web/registro.html', {'form': form})
+
+# Vista para el formulario de registro
+def formulario_registro(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  # Cambia esto a donde quieras redirigir tras el registro
+    else:
+        form = UsuarioForm()
+    
+    return render(request, 'registro.html', {'form': form})
+
+# Vista para manejar el formulario de registro via AJAX
+def registro_ajax(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True, 'message': 'Registro Exitoso, redirigiendo al inicio de sesión.'})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors}, status=400)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 def perfil(request):
     return render(request, 'web/perfil.html')
@@ -24,184 +85,42 @@ def contacto(request):
 def carrito(request):
     return render(request, 'web/carrito.html')
 
-# Vistas de Categorías
-
+# Vistas por categoría 
 def categoria_carreras(request):
-    juegos_categoria = {k: v for k, v in JUEGOS.items() if v["categoria"] == "carreras"}
-    return render(request, 'categorias/carreras.html', {
-        "categoria": CATEGORIAS["carreras"],
-        "juegos": juegos_categoria
-    })
+    categoria = get_object_or_404(Categoria, nombre__iexact="Carreras")
+    juegos = Juego.objects.filter(categoria=categoria)
+    return render(request, 'categorias/carreras.html', {"categoria": categoria, "juegos": juegos})
 
 def categoria_cozy(request):
-    juegos_categoria = {k: v for k, v in JUEGOS.items() if v["categoria"] == "cozy"}
-    return render(request, 'categorias/cozy.html', {
-        "categoria": CATEGORIAS["cozy"],
-        "juegos": juegos_categoria
-    })
+    categoria = get_object_or_404(Categoria, nombre__iexact="Cozy")
+    juegos = Juego.objects.filter(categoria=categoria)
+    return render(request, 'categorias/cozy.html', {"categoria": categoria, "juegos": juegos})
 
 def categoria_mundoabierto(request):
-    juegos_categoria = {k: v for k, v in JUEGOS.items() if v["categoria"].replace(" ", "").lower() == CATEGORIAS[3]["nombre"].replace(" ", "").lower()}
-    return render(request, 'categorias/mundoabierto.html', {
-        "categoria": CATEGORIAS["mundoabierto"],
-        "juegos": juegos_categoria
-    })
-
+    categoria = get_object_or_404(Categoria, nombre__iexact="Mundo Abierto")
+    juegos = Juego.objects.filter(categoria=categoria)
+    return render(request, 'categorias/mundoabierto.html', {"categoria": categoria, "juegos": juegos})
 
 def categoria_shooters(request):
-    juegos_categoria = {k: v for k, v in JUEGOS.items() if v["categoria"] == "shooters"}
-    return render(request, 'categorias/shooters.html', {
-        "categoria": CATEGORIAS["shooters"],
-        "juegos": juegos_categoria
-    })
+    categoria = get_object_or_404(Categoria, nombre__iexact="Shooters")
+    juegos = Juego.objects.filter(categoria=categoria)
+    return render(request, 'categorias/shooters.html', {"categoria": categoria, "juegos": juegos})
 
 def categoria_terror(request):
-    juegos_categoria = {k: v for k, v in JUEGOS.items() if v["categoria"] == "terror"}
-    return render(request, 'categorias/terror.html', {
-        "categoria": CATEGORIAS["terror"],
-        "juegos": juegos_categoria
-    })
+    categoria = get_object_or_404(Categoria, nombre__iexact="Terror")
+    juegos = Juego.objects.filter(categoria=categoria)
+    return render(request, 'categorias/terror.html', {"categoria": categoria, "juegos": juegos})
 
-# Vista dinámica para mostrar cualquier categoría
+# Vista dinámica por ID
 def subcategoria(request, categoria_id):
-    categoria = CATEGORIAS.get(categoria_id)  # Usar categoria_id para obtener la categoría desde el diccionario
-    juegos_categoria = {k: v for k, v in JUEGOS.items() if v["categoria"] == categoria["nombre"].lower()}
+    categoria = get_object_or_404(Categoria, pk=categoria_id)
+    juegos = Juego.objects.filter(categoria=categoria)
     return render(request, 'web/subcategorias.html', {
         'categoria': categoria,
-        'juegos': juegos_categoria
+        'juegos': juegos
     })
 
-# Diccionario de datos de categorias 
-
-CATEGORIAS = {
-    1: {
-        "nombre": "Carreras",
-        "titulo": "Carreras",
-        "lema": "🏎️ Carreras: La velocidad lo es todo.",
-        "descripcion": "Compite en emocionantes circuitos, domina curvas cerradas y deja atrás a tus rivales en intensas carreras llenas de adrenalina.",
-        "imagen": "/static/img/carreras.jpg"
-    },
-    2: {
-        "nombre": "Cozy",
-        "titulo": "Cozy",
-        "lema": "☕ Cozy: Relájate y disfruta.",
-        "descripcion": "Juegos tranquilos con ambientaciones acogedoras, mecánicas relajantes y un ritmo pausado para desconectar del estrés.",
-        "imagen": "/static/img/cozy.jpg"
-    },
-    3: {
-        "nombre": "mundoabierto",
-        "titulo": "Mundo Abierto",
-        "lema": "🌍 Mundo Abierto: Explora sin límites.",
-        "descripcion": "Aventúrate en vastos mundos llenos de secretos, desafíos y personajes inolvidables. La historia la escribes tú.",
-        "imagen": "/static/img/mundo-abierto.jpg"
-    },
-    4: {
-        "nombre": "Shooters",
-        "titulo": "Shooters",
-        "lema": "🎯 Shooters: Acción sin descanso.",
-        "descripcion": "  Enfréntate a enemigos en intensos tiroteos, ya sea en combates tácticos, arenas frenéticas o guerras épicas.",
-        "imagen": "/static/img/shooters.jpg"
-    },
-    5: {
-        "nombre": "Terror",
-        "titulo": "Terror",
-        "lema": "👻 Terror: Sobrevive a la pesadilla.",
-        "descripcion": "Sumérgete en historias escalofriantes, evade horrores indescriptibles y enfrenta el miedo en cada sombra.",
-        "imagen": "/static/img/terror.jpg"
-    },
-}
-
-
-
-# Vista dinámica para mostrar cualquier juego
+# Detalle del juego
 def detalle_juego(request, juego_id):
-    juego = JUEGOS.get(int(juego_id))
+    juego = get_object_or_404(Juego, pk=juego_id)
     return render(request, 'web/detalle.html', {'juego': juego})
-
-
-
-# Diccionario con los datos de los juegos
-
-JUEGOS = {
-    1: {
-        "titulo": "Crash Team Racing Nitro-Fueled",
-        "plataformas": "PS4, Xbox One, Nintendo Switch, PC",
-        "descripcion": "Revive la emoción de las carreras arcade con Crash y sus amigos. Derrapa a toda velocidad, usa ítems locos y domina los circuitos llenos de obstáculos en este vibrante remake del clásico de PlayStation.",
-        "precio": "20.000",
-        "imagen": "/static/img/crashteamracing.jpg",
-        "categoria": "carreras",
-    },
-    2: {
-        "titulo": "Mario Kart 8 Deluxe",
-        "plataformas": "Nintendo Switch",
-        "descripcion": "Compite en pistas alocadas, usa ítems estratégicos y disfruta de la mejor experiencia multijugador de carreras con Mario y sus amigos.",
-        "precio": "49.990",
-        "imagen": "/static/img/mariokart8deluxe.jpg",
-        "categoria": "carreras",
-    },
-    3: {
-        "titulo": "Stardew Valley",
-        "plataformas": "PS4, Xbox One, Nintendo Switch, PC",
-        "descripcion": "Crea la granja de tus sueños en este relajante juego de simulación.",
-        "precio": "14.990",
-        "imagen": "/static/img/stardewvalley.jpg",
-        "categoria": "cozy",
-    },
-    4: {
-        "titulo": "Spiritfarer",
-        "plataformas": "PS4, Xbox One, Nintendo Switch, PC",
-        "descripcion": "Un conmovedor juego sobre la muerte y la amistad.",
-        "precio": "29.990",
-        "imagen": "/static/img/spiritfarer.jpg",
-        "categoria": "cozy",
-    },
-    5: {
-        "titulo": "Cyberpunk 2077",
-        "plataformas": "PS4, Xbox One, PC",
-        "descripcion": "Un RPG de mundo abierto ambientado en el futuro distópico de Night City.",
-        "precio": "59.990",
-        "imagen": "/static/img/cyberpunk2077.jpg",
-        "categoria": "mundoabierto",
-    },
-    6: {
-        "titulo": "The Legend of Zelda: Tears of the Kingdom",
-        "plataformas": "Nintendo Switch",
-        "descripcion": "Explora Hyrule y descubre sus secretos en esta épica secuela de Breath of the Wild.",
-        "precio": "69.990",
-        "imagen": "/static/img/zeldatotk.jpg",
-        "categoria": "mundoabierto",
-    },
-    7: {
-        "titulo": "DOOM Eternal",
-        "plataformas": "PS4, Xbox One, PC",
-        "descripcion": "Enfréntate a hordas de demonios en este frenético shooter en primera persona.",
-        "precio": "39.990",
-        "imagen": "/static/img/doometernal.jpg",
-        "categoria": "shooters",
-    },
-    8: {
-        "titulo": "Splatoon 2",
-        "plataformas": "Nintendo Switch",
-        "descripcion": "Disfruta de emocionantes batallas de pintura multijugador.",
-        "precio": "49.990",
-        "imagen": "/static/img/splatoon2.jpg",
-        "categoria": "shooters",
-    },
-    9: {
-        "titulo": "Alan Wake 2",
-        "plataformas": "PS5, Xbox Series X/S, PC",
-        "descripcion": "Una oscura historia de terror psicológico que desafía la realidad.",
-        "precio": "59.999",
-        "imagen": "/static/img/alanwake2.jpg",
-        "categoria": "terror",
-    },
-    10: {
-        "titulo": "Resident Evil 4 Remake",
-        "plataformas": "PS4, PS5, Xbox Series X/S, PC",
-        "descripcion": "Revive el clásico de terror con gráficos y jugabilidad mejorados.",
-        "precio": "59.999",
-        "imagen": "/static/img/residentevil4remake.jpg",
-        "categoria": "terror",
-    },
-}
-

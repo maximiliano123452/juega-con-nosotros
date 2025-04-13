@@ -1,10 +1,11 @@
 {% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juega con Nosotros - Registro </title> 
+    <title>Juega con Nosotros - Registro</title>
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,60 +45,79 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6 col-lg-4 p-4 mt-5 mx-auto">
                     <div class="col-12 d-flex justify-content-center">
-                    <h2 class="titulo">Formulario de Registro</h2>
-                    
-                    <form id="registroForm" class="contacto-form">
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label required">Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombre" required placeholder="Ingresa tu nombre"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="usuario" class="form-label required">Nombre de Usuario</label>
-                            <input type="text" class="form-control" id="usuario" required placeholder="Ingresa tu nombre de usuario"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label required">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" required placeholder="tucorreo@ejemplo.com"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label required">Contraseña</label>
-                            <input type="password" class="form-control" id="password" required placeholder="Ingresa tu contraseña"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password2" class="form-label required">Repetir Contraseña</label>
-                            <input type="password" class="form-control" id="password2" required placeholder="Repite tu contraseña"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="fechaNacimiento" class="form-label required">Fecha de Nacimiento</label>
-                            <input type="date" class="form-control" id="fechaNacimiento" required/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="direccion" class="form-label">Dirección de Despacho (Opcional)</label>
-                            <input type="text" class="form-control" id="direccion" placeholder="Ingresa tu dirección de despacho (opcional)"/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="rol" class="form-label required">Rol de Usuario</label>
-                            <select id="rol" class="form-control form-select-lg" required>
-                                <option value="">Selecciona un rol</option>
-                                <option value="administrador">Administrador</option>
-                                <option value="vendedor">Vendedor</option>
-                                <option value="cliente">Cliente</option>
-                                <option value="invitado">Invitado</option>
-                            </select>
-                        </div>
-                        <div class="form-check mb-3">
-                            <input type="checkbox" class="form-check-input" id="terminos" required/>
-                            <label class="form-check-label required" for="terminos">Acepto los términos y condiciones</label>
-                        </div>
-                        <div class="d-grid gap-3">
-                            <button type="submit" class="btn btn-custom">Registrarse</button>
-                            <button type="reset" class="btn btn-secondary">Limpiar</button>
-                        </div>
-                        <div class="login-link text-center mt-3">
-                            <a class="btn btn-secondary" href="{% url 'index' %}">Volver al inicio</a>
-                        </div>
-                    </form>
-                </div>
+                        <h2 class="titulo">Formulario de Registro</h2>
+                        
+                        <form id="registroForm" class="contacto-form" method="post" data-url="{% url 'registro_ajax' %}">
+                            {% csrf_token %}
+                            
+                        
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.nombre_completo.id_for_label }}" class="form-label required">Nombre Completo</label>
+                                {{ form.nombre_completo|add_class:"form-control" }}
+                                <span class="error-text" id="error-nombre_completo"></span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.nombre_usuario.id_for_label }}" class="form-label required">Nombre de Usuario</label>
+                                {{ form.nombre_usuario|add_class:"form-control" }}
+                                <span class="error-text" id="error-nombre_usuario"></span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.correo_electronico.id_for_label }}" class="form-label required">Correo Electrónico</label>
+                                {{ form.correo_electronico|add_class:"form-control" }}
+                                <span class="error-text" id="error-correo_electronico"></span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.contrasena.id_for_label }}" class="form-label required">Contraseña</label>
+                                {{ form.contrasena|add_class:"form-control" }}
+                                <span class="error-text" id="error-contrasena"></span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.repetir_contrasena.id_for_label }}" class="form-label required">Repetir Contraseña</label>
+                                {{ form.repetir_contrasena|add_class:"form-control" }}
+                                <span class="error-text" id="error-repetir_contrasena"></span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.fecha_nacimiento.id_for_label }}" class="form-label required">Fecha de Nacimiento</label>
+                                {{ form.fecha_nacimiento|add_class:"form-control" }}
+                                <span class="error-text" id="error-fecha_nacimiento"></span>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.direccion_despacho.id_for_label }}" class="form-label">Dirección de Despacho (Opcional)</label>
+                                {{ form.direccion_despacho|add_class:"form-control" }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="{{ form.rol.id_for_label }}" class="form-label required">Rol de Usuario</label>
+                                {{ form.rol|add_class:"form-control form-select-lg" }}
+                                <span class="error-text" id="error-rol"></span>
+                            </div>
+                            
+                            <div class="form-check mb-3">
+                                {{ form.terminos|add_class:"form-check-input" }}
+                                <label class="form-check-label required" for="{{ form.terminos.id_for_label }}">Acepto los términos y condiciones</label>
+                            </div>
+                            <div class="error-text" id="error-terminos"></div>
+                            
+                            <div id="mensaje" class="mb-3"></div>
+
+                            <div class="d-grid gap-3">
+                                <button type="submit" class="btn btn-custom">Registrarse</button>
+                                <button type="reset" class="btn btn-secondary">Limpiar</button>
+                            </div>
+                            
+                            <div class="login-link text-center mt-3">
+                                <a class="btn btn-secondary" href="{% url 'index' %}">Volver al inicio</a>
+                            </div>
+                        </form>
+                                                
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,10 +128,6 @@
         <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
     </footer>
     
-    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/registro.js' %}"></script>
 </body>
 </html>
-
-
-
-
