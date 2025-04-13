@@ -15,10 +15,9 @@ urlpatterns = [
     
     # Ruta dinámica para las categorías
     path('categoria/<int:categoria_id>/', views.subcategoria, name='subcategoria'),
-
-   # Ruta dinámica para juegos
-    path("juego/<int:juego_id>/", views.detalle_juego, name="detalle_juego"),
-
-
+    
+    # Ruta dinámica para juegos
+    path('juego/<int:juego_id>/', views.detalle_juego, name='detalle_juego'),
 ]
+
 
