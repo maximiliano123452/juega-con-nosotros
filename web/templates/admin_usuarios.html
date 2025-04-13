@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Usuarios</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Panel de Administración</h1>
+        <h2>Lista de Usuarios Registrados</h2>
+    </header>
+
+    <div class="contenedor-principal">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Fecha Nacimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.nombre_completo }}</td>
+                    <td>{{ usuario.nombre_usuario }}</td>
+                    <td>{{ usuario.correo_electronico }}</td>
+                    <td>{{ usuario.rol|capfirst }}</td>
+                    <td>{{ usuario.fecha_nacimiento }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>Panel de administración - Juega con Nosotros</p>
+    </footer>
+</body>
+</html>
