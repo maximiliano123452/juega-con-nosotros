@@ -9,6 +9,9 @@ class Categoria(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+    class Meta:
+        db_table = 'core_categoria'
 
 class Juego(models.Model):
     nombre = models.CharField(max_length=100)
@@ -20,7 +23,8 @@ class Juego(models.Model):
 
     def __str__(self):
         return self.nombre
-    
+    class Meta:
+        db_table = 'core_juego'
 
 class Usuario(models.Model):
     nombre_completo = models.CharField(max_length=200)
@@ -42,3 +46,4 @@ class Usuario(models.Model):
     class Meta:
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuarios'
+        db_table = 'core_usuario'
