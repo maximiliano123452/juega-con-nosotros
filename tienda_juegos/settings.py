@@ -59,25 +59,31 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 
 
+# Respaldo de configuración db.sqlite3 (todo funcionando)
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': BASE_DIR / 'db.sqlite3',  
+    #}
+#}
+
+
+# Configuración de base de datos (Oracle)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  
+        'ENGINE': 'django.db.backends.oracle',  # Usamos el backend de Oracle de Django
+        'NAME': 'g2f005d56487f0c_ljmkn6ankifgga4w_low',  # Nombre del servicio de la base de datos
+        'USER': 'admin_jcn',  # Nombre de usuario de la base de datos
+        'PASSWORD': 'Prueba1234567!',  # Contraseña de la base de datos
+        #'HOST': 'adb.sa-santiago-1.oraclecloud.com',  # Dirección del servidor
+        #'PORT': '1522',  # Puerto de conexión (por lo general 1522 para Oracle)
     }
 }
 
 
-# Configuración de base de datos (Oracle)
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.oracle',
-   #     'NAME': 'XE',  # o tu cadena TNS
-    #    'USER': 'user_prueba',
-     #   'PASSWORD': 'Prueba1234567!',
-      #  'HOST': 'localhost',
-       # 'PORT': '1521',
-    #}
-#}
+
+
+
 
 # Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
