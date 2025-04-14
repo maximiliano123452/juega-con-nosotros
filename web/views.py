@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from core.models import Categoria, Juego, Usuario
 from django.http import JsonResponse
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from core.forms import UsuarioForm, LoginForm, PerfilForm
 from django.contrib.auth import logout
 from django.contrib import messages
@@ -132,13 +132,19 @@ def perfil(request):
     if request.method == 'POST':
         form = PerfilForm(request.POST, instance=usuario)
         if form.is_valid():
-            form.save()
+            usuario_modificado = form.save(commit=False)
+
+            # Verificar si se ingresó una nueva contraseña
+            nueva_contrasena = form.cleaned_data.get('contrasena')
+            if nueva_contrasena:
+                usuario_modificado.contrasena = make_password(nueva_contrasena)
+
+            usuario_modificado.save()
             messages.success(request, '✅ Tus datos se han actualizado correctamente.')
         else:
             messages.error(request, '❌ Hubo errores al actualizar tus datos. Por favor revisa el formulario.')
     else:
         form = PerfilForm(instance=usuario)
-        print("GET - cargando datos del usuario")
 
     return render(request, 'web/perfil.html', {
         'usuario_nombre': usuario.nombre_usuario,

@@ -101,14 +101,13 @@ class PerfilForm(forms.ModelForm):
             'nombre_usuario',
             'correo_electronico',
             'fecha_nacimiento',
-            'direccion_despacho',  # Dirección opcional
-            'contrasena',
+            'direccion_despacho'
         ]
         widgets = {
             'nombre_completo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingresa tu nombre completo'}),
             'nombre_usuario': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingresa tu nombre de usuario'}),
             'correo_electronico': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Correo Electrónico'}),
-            'fecha_nacimiento': forms.DateInput(format='%Y-%m-%d',  # Formato compatible con input type="date" 
+            'fecha_nacimiento': forms.DateInput(format='%Y-%m-%d',
                                                 attrs={'type': 'date', 'class': 'form-control'})
         }
 
@@ -125,7 +124,7 @@ class PerfilForm(forms.ModelForm):
         password = self.cleaned_data.get('contrasena')
 
         if password:
-            usuario.contrasena = make_password(password)  # Hasheamos la nueva contraseña
+            usuario.contrasena = make_password(password)
 
         if commit:
             usuario.save()
