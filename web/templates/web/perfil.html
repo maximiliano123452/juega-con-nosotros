@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Juega con Nosotros - Registro </title> 
+  <title>Juega con Nosotros - Perfil</title> 
   <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +17,8 @@
       <h1>Juega con Nosotros</h1>
       <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
   </header>
+
+
   <nav class="navbar bg-dark navbar-dark">
     <div class="container">
         <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
@@ -30,6 +32,14 @@
 
             {% if usuario_nombre %}
             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                          
+            {% if usuario_rol == 'administrador' %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'admin_usuarios' %}" title="Admin Usuarios">
+                    👤 Admin Usuarios
+                </a>
+            </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'perfil' %}" title="Mi Perfil">
                     <img src="{% static 'img/icono-perfil.png' %}" alt="Perfil" class="rounded-circle">
@@ -51,9 +61,9 @@
         Sesión Iniciada como: 
         <strong>
             <a href="{% url 'perfil' %}" style="color: white; text-decoration: underline;">
-                {{ usuario_nombre }}
+                {{ usuario_nombre }} ({{ usuario_rol }})
             </a>
-        </strong>!
+        </strong>
     </div>
     {% endif %}
 
@@ -63,41 +73,52 @@
           <div class="col-12 d-flex justify-content-center">
               <h2 class="titulo">👤 Mi Perfil</h2>
           </div>
+          {% if messages %}
+          <div class="container mt-4">
+              {% for message in messages %}
+              <div class="alert alert-success" role="alert">
+                  {{ message }}
+              </div>
+              {% endfor %}
+          </div>
+          {% endif %}
+
 
           <div class="col-12 col-md-8">
-              <form id="perfilForm" class="contacto-form mx-auto" style="max-width: 600px;">
+              <form id="perfilForm" method="POST" class="contacto-form mx-auto" style="max-width: 600px;">
+                  {% csrf_token %}
+                  {{ form.as_p }}  
+                  {% if form.errors %}
+                    <div class="alert alert-danger mt-3">
+                        <strong>Errores:</strong>
+                        <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                            <li><strong>{{ field.label }}</strong>: {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                   {% endif %}
+
+                 
+
                   <div class="mb-3">
-                      <label for="nombre" class="form-label">Nombre Completo</label>
-                      <input type="text" id="nombre" class="form-control" placeholder="Nuevo nombre" required/>
+                      <label for="rol" class="form-label">Rol:</label>
+                      <p class="text-muted">{{ usuario_rol }} <br> (El rol no se puede modificar. <br>Contacta a un administrador.)</p>
                   </div>
-                  <div class="mb-3">
-                      <label for="usuario" class="form-label">Nombre de Usuario</label>
-                      <input type="text" id="usuario" class="form-control" placeholder="Nuevo usuario" required/>
-                  </div>
-                  <div class="mb-3">
-                      <label for="email" class="form-label">Correo Electrónico</label>
-                      <input type="email" id="email" class="form-control" placeholder="Nuevo correo" required/>
-                  </div>
-                  <div class="mb-3">
-                      <label for="direccion" class="form-label">Dirección</label>
-                      <input type="text" id="direccion" class="form-control" placeholder="Nueva dirección"/>
-                  </div>
-                  <div class="mb-3">
-                      <label for="password" class="form-label">Nueva Contraseña</label>
-                      <input type="password" id="password" class="form-control" placeholder="Nueva contraseña"/>
-                  </div>
-                  <div class="mb-3">
-                      <label for="password2" class="form-label">Repetir Contraseña</label>
-                      <input type="password" id="password2" class="form-control" placeholder="Repetir nueva contraseña"/>
-                  </div>
+                  
                   <div class="d-grid gap-3">
                       <button type="submit" class="btn btn-custom">Guardar Cambios</button>
-                      <button type="reset" class="btn btn-secondary">Limpiar</button>
+
                   </div>
               </form>
 
               <div class="login-link mt-3 text-center">
-                  <p><a href="{% url 'login' %}">Volver al inicio de sesión</a></p>
+                  <p><a href="{% url 'index' %}">Volver al Inicio</a></p>
               </div>
           </div>
       </div>
@@ -109,9 +130,6 @@
     <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
   </footer>
 
-  
-<script src="{% static 'js/script.js' %}"></script>
 
 </body>
 </html>
-

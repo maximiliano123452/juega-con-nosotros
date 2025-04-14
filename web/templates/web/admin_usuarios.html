@@ -1,22 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juega con Nosotros - Tienda de Videojuegos</title>
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Juega con Nosotros - Tienda de Videojuegos</title>
+        <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    </head>
+    
 <body>
     <header>
         <h1>Juega con Nosotros</h1>
-        <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
+        <h2 class="slogan">Panel de Administración</h2>
     </header>
-    
+
     <nav class="navbar bg-dark navbar-dark">
         <div class="container">
             <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
@@ -59,31 +59,44 @@
 
     {% if usuario_nombre %}
     <div class="bienvenida" style="background-color: #5f449a; color: white; text-align: center; padding: 10px; font-size: 18px;">
-        👋 Bienvenido, 
+        Sesión iniciada como:  
         <strong>
             <a href="{% url 'perfil' %}" style="color: white; text-decoration: underline;">
-                {{ usuario_nombre }}  ({{ usuario_rol }})
+                {{ usuario_nombre }} ({{ usuario_rol }})
             </a>
-        </strong>!
+        </strong>
     </div>
     {% endif %}
 
     <div class="contenedor-principal">
-        <div class="categorias">
-            {% for categoria in categorias %}
-            <div class="categoria" onclick="location.href='{% url 'subcategoria' categoria.id %}'">
-                <img src="{{ categoria.imagen }}" alt="{{ categoria.nombre }}">
-                <h3>{{ categoria.titulo }}</h3>
-            </div>
-            {% endfor %}
-        </div>
+        <h2>Lista de Usuarios Registrados</h2>
+        <table>
+            <thead>
+                
+                <tr>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Fecha Nacimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.nombre_completo }}</td>
+                    <td>{{ usuario.nombre_usuario }}</td>
+                    <td>{{ usuario.correo_electronico }}</td>
+                    <td>{{ usuario.rol|capfirst }}</td>
+                    <td>{{ usuario.fecha_nacimiento }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <footer>
-        <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
-        <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
+        <p>Panel de administración - Juega con Nosotros</p>
     </footer>
-</body> 
+</body>
 </html>
-
-
