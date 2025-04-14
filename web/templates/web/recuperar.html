@@ -30,6 +30,14 @@
   
               {% if usuario_nombre %}
               <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                            
+              {% if usuario_rol == 'administrador' %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'admin_usuarios' %}" title="Admin Usuarios">
+                      👤 Admin Usuarios
+                  </a>
+              </li>
+              {% endif %}
               <li class="nav-item">
                   <a class="nav-link" href="{% url 'perfil' %}" title="Mi Perfil">
                       <img src="{% static 'img/icono-perfil.png' %}" alt="Perfil" class="rounded-circle">
@@ -51,9 +59,9 @@
           Sesión Iniciada como: 
           <strong>
               <a href="{% url 'perfil' %}" style="color: white; text-decoration: underline;">
-                  {{ usuario_nombre }}
+                  {{ usuario_nombre }} ({{ usuario_rol }})
               </a>
-          </strong>!
+          </strong>
       </div>
       {% endif %}
 

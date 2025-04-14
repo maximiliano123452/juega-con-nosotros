@@ -15,7 +15,7 @@ urlpatterns = [
     path('registro/', views.registro, name='registro'),
 
     # Vista protegida solo para administradores
-    path('admin/usuarios/', views.admin_usuarios, name='admin_usuarios'),
+    path('gestion/usuarios/', views.admin_usuarios, name='admin_usuarios'),
 
     # Ruta dinámica para las categorías
     path('categoria/<int:categoria_id>/', views.subcategoria, name='subcategoria'),
