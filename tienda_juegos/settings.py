@@ -42,7 +42,7 @@ ROOT_URLCONF = 'tienda_juegos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Puedes agregar rutas específicas si quieres
+        'DIRS': [],  
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,7 +58,7 @@ TEMPLATES = [
 # Aplicación WSGI
 WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 
-# 🧠 Base de datos Oracle activa (usando alias del wallet TNS)
+#  Base de datos Oracle activa (usando alias del wallet TNS)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
@@ -68,7 +68,7 @@ DATABASES = {
     }
 }
 
-# 🧱 SQLite (comentado por si lo quieres usar como respaldo)
+# SQLite (comentado por si lo quieres usar como respaldo)
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
