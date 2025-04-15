@@ -20,11 +20,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web',  # App principal - contiene pagina web
-    'core', # App para base de datos
+    'web',   # App principal
+    'core',  # App para base de datos
 ]
 
-# Middlewares que usa Django
+# Middleware que usa Django
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -42,7 +42,7 @@ ROOT_URLCONF = 'tienda_juegos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Django buscará plantillas en templates/ dentro de las apps
+        'DIRS': [],  # Puedes agregar rutas específicas si quieres
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,47 +58,30 @@ TEMPLATES = [
 # Aplicación WSGI
 WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 
-
-# Respaldo de configuración db.sqlite3 (todo funcionando)
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.sqlite3',
-   #     'NAME': BASE_DIR / 'db.sqlite3',  
-    #}
-#}
-
-
-# Configuración de base de datos (Oracle)
+# 🧠 Base de datos Oracle activa (usando alias del wallet TNS)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.oracle',  # Usamos el backend de Oracle de Django
-        'NAME': 'g2f005d56487f0c_ljmkn6ankifgga4w_low',  # Nombre del servicio de la base de datos
-        'USER': 'admin_jcn',  # Nombre de usuario de la base de datos
-        'PASSWORD': 'Prueba1234567!',  # Contraseña de la base de datos
-        #'HOST': 'adb.sa-santiago-1.oraclecloud.com',  # Dirección del servidor
-        #'PORT': '1522',  # Puerto de conexión (por lo general 1522 para Oracle)
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'LJMKN6ANKIFGGA4W_LOW',  # Este alias debe coincidir con el de tnsnames.ora
+        'USER': 'admin_jcn',
+        'PASSWORD': 'Prueba1234567!',
     }
 }
 
-
-
-
-
+# 🧱 SQLite (comentado por si lo quieres usar como respaldo)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Validadores de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 # Configuración regional
@@ -107,17 +90,15 @@ TIME_ZONE = 'America/Santiago'
 USE_I18N = True
 USE_TZ = True
 
-# ✅ Archivos estáticos (CSS, JS, imágenes)
+# Archivos estáticos (CSS, JS, imágenes)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'web/static'),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'web/static')]
 
-# ✅ Archivos subidos por usuarios (opcional)
+# Archivos multimedia (opcional)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Por ahora no hay configuración de correo ni autenticación extra
+
 
 
 
