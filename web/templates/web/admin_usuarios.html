@@ -1,16 +1,16 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Juega con Nosotros - Tienda de Videojuegos</title>
-        <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    </head>
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juega con Nosotros - Tienda de Videojuegos</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
 <body>
     <header>
         <h1>Juega con Nosotros</h1>
@@ -22,25 +22,19 @@
             <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
                 <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Categorías</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
-                
+
                 {% if not usuario_nombre %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
-
                 {% endif %}
 
                 {% if usuario_nombre %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a></li>
-
-                
                 {% if usuario_rol == 'administrador' %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin_usuarios' %}" title="Admin Usuarios">
-                        👤 Admin Usuarios
-                    </a>
+                    <a class="nav-link" href="{% url 'admin_usuarios' %}" title="Admin Usuarios">👤 Admin Usuarios</a>
                 </li>
                 {% endif %}
-
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'perfil' %}" title="Mi Perfil">
                         <img src="{% static 'img/icono-perfil.png' %}" alt="Perfil" class="rounded-circle">
@@ -70,15 +64,15 @@
 
     <div class="contenedor-principal">
         <h2>Lista de Usuarios Registrados</h2>
-        <table>
-            <thead>
-                
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
                 <tr>
                     <th>Nombre</th>
                     <th>Usuario</th>
                     <th>Correo</th>
                     <th>Rol</th>
                     <th>Fecha Nacimiento</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -89,7 +83,15 @@
                     <td>{{ usuario.correo_electronico }}</td>
                     <td>{{ usuario.rol|capfirst }}</td>
                     <td>{{ usuario.fecha_nacimiento }}</td>
+                    <td>
+                        <form method="POST" action="{% url 'eliminar_usuario' usuario.id %}" onsubmit="return confirm('¿Estás seguro de eliminar este usuario?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
+                {% empty %}
+                <tr><td colspan="6" class="text-center">No hay usuarios registrados.</td></tr>
                 {% endfor %}
             </tbody>
         </table>

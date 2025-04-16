@@ -16,13 +16,16 @@ urlpatterns = [
 
     # Vista protegida solo para administradores
     path('gestion/usuarios/', views.admin_usuarios, name='admin_usuarios'),
+    path('gestion/usuarios/eliminar/<int:usuario_id>/', views.eliminar_usuario, name='eliminar_usuario'),
+
+    # Vistas protegidas por rol para CRUD de Juegos y Categorías
+    path('gestion/juegos/', views.vista_juegos, name='vista_juegos'),
+    path('gestion/categorias/', views.vista_categorias, name='vista_categorias'),
 
     # Ruta dinámica para las categorías
     path('categoria/<int:categoria_id>/', views.subcategoria, name='subcategoria'),
-    
+
     # Ruta dinámica para juegos
     path('juego/<int:juego_id>/', views.detalle_juego, name='detalle_juego'),
 ]
-
-
 
