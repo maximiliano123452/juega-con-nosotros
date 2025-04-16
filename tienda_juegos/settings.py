@@ -62,7 +62,7 @@ WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'LJMKN6ANKIFGGA4W_LOW',  # Este alias debe coincidir con el de tnsnames.ora
+        'NAME': 'LJMKN6ANKIFGGA4W_LOW',  # Este alias debe coincidir con el de tnsnames.ora, se pueden agregar más alias también.
         'USER': 'admin_jcn',
         'PASSWORD': 'Prueba1234567!',
     }
