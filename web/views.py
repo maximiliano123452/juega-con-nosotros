@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from core.models import Categoria, Juego, Usuario
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password, make_password
-from core.forms import UsuarioForm, LoginForm, PerfilForm
+from core.forms import UsuarioForm, LoginForm, PerfilForm, JuegoForm
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -207,3 +207,26 @@ def subcategoria(request, categoria_id):
 def detalle_juego(request, juego_id):
     juego = get_object_or_404(Juego, pk=juego_id)
     return render(request, 'web/detalle.html', {'juego': juego, **obtener_usuario_nombre(request)})
+
+# Vista para agregar juego
+def agregar_juego(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+
+    usuario = Usuario.objects.get(id=usuario_id)
+    if usuario.rol not in ['administrador', 'vendedor']:
+        return render(request, 'web/error_permiso.html', status=403)
+
+    if request.method == 'POST':
+        form = JuegoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('vista_juegos')
+    else:
+        form = JuegoForm()
+
+    return render(request, 'web/agregar_juego.html', {
+        'form': form,
+        **obtener_usuario_nombre(request)
+    })

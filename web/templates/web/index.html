@@ -26,17 +26,23 @@
                 {% if not usuario_nombre %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
-
                 {% endif %}
 
                 {% if usuario_nombre %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a></li>
 
-                
                 {% if usuario_rol == 'administrador' %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin_usuarios' %}" title="Admin Usuarios">
                         👤 Admin Usuarios
+                    </a>
+                </li>
+                {% endif %}
+
+                {% if usuario_rol == 'administrador' or usuario_rol == 'vendedor' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'vista_juegos' %}" title="Gestión de Juegos">
+                        🎮 Gestión de Juegos
                     </a>
                 </li>
                 {% endif %}
@@ -85,5 +91,6 @@
     </footer>
 </body> 
 </html>
+
 
 

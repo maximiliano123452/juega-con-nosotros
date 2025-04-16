@@ -1,9 +1,8 @@
-from django import forms
-from django.contrib.auth.hashers import make_password, check_password
-from .models import Usuario
+from django import forms 
+from django.contrib.auth.hashers import make_password
+from .models import Usuario, Juego
 from django.conf import settings
 from django.forms import DateInput
-
 
 # Formulario de registro de usuario
 class UsuarioForm(forms.ModelForm):
@@ -26,6 +25,7 @@ class UsuarioForm(forms.ModelForm):
         widget=DateInput(format='%Y-%m-%d', attrs={'type': 'date', 'class': 'form-control'}),
         input_formats=['%Y-%m-%d']
     )
+
     class Meta:
         model = Usuario
         fields = [
@@ -55,15 +55,13 @@ class UsuarioForm(forms.ModelForm):
 
     def save(self, commit=True):
         usuario = super().save(commit=False)
-        usuario.contrasena = make_password(self.cleaned_data['contrasena'])  # Hasheamos la contraseña
+        usuario.contrasena = make_password(self.cleaned_data['contrasena'])
         if commit:
             usuario.save()
         return usuario
 
 
-
-# Formulario de inicio de sesión
-
+# Formulario de inicio de sesion
 class LoginForm(forms.Form):
     correo_electronico = forms.EmailField(
         label="Correo Electrónico", 
@@ -75,8 +73,7 @@ class LoginForm(forms.Form):
     )
 
 
-
-# Formulario de actualización de perfil de usuario
+# Formulario de actualizacion de perfil de usuario
 class PerfilForm(forms.ModelForm):
     contrasena = forms.CharField(
         required=False,
@@ -128,4 +125,17 @@ class PerfilForm(forms.ModelForm):
 
         if commit:
             usuario.save()
-        return usuario
+        return usuario    
+
+
+# Formulario para agregar juegos
+class JuegoForm(forms.ModelForm):
+    class Meta:
+        model = Juego
+        fields = ['nombre', 'descripcion', 'precio', 'categoria']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del juego'}),
+            'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Descripción'}),
+            'precio': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'placeholder': 'Precio'}),
+            'categoria': forms.Select(attrs={'class': 'form-select'}),
+        }
