@@ -115,7 +115,7 @@ def perfil(request):
         'usuario_rol': usuario.rol,
         'usuario': usuario,
         'form': form
-    })
+    }) 
 
 def recuperar(request):
     return render(request, 'web/recuperar.html', obtener_usuario_nombre(request))
