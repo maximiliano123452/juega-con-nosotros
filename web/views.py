@@ -7,6 +7,22 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 
+# Decorador para proteger vistas según el rol del usuario
+def solo_rol_permitido(roles=[]):
+    def decorador(funcion):
+        def wrapper(request, *args, **kwargs):
+            usuario_id = request.session.get('usuario_id')
+            if not usuario_id:
+                return redirect('login')
+
+            usuario = Usuario.objects.get(id=usuario_id)
+
+            if usuario.rol in roles:
+                return funcion(request, *args, **kwargs)
+            else:
+                return render(request, 'web/error_permiso.html', status=403)
+        return wrapper
+    return decorador
 
 # para obtener datos del usuario logueado
 def obtener_usuario_nombre(request):
@@ -92,10 +108,8 @@ def contacto(request):
 def carrito(request):
     return render(request, 'web/carrito.html', obtener_usuario_nombre(request))
 
+@solo_rol_permitido(roles=['cliente', 'vendedor', 'administrador'])
 def perfil(request):
-    usuario_nombre = obtener_usuario_nombre(request)
-    if not usuario_nombre:
-        return redirect('login')
     usuario = Usuario.objects.get(id=request.session['usuario_id'])
     if request.method == 'POST':
         form = PerfilForm(request.POST, instance=usuario)
@@ -115,30 +129,26 @@ def perfil(request):
         'usuario_rol': usuario.rol,
         'usuario': usuario,
         'form': form
-    }) 
+    })
 
 def recuperar(request):
     return render(request, 'web/recuperar.html', obtener_usuario_nombre(request))
 
-# Vista para mostrar usuarios
+@solo_rol_permitido(roles=['administrador'])
 def admin_usuarios(request):
-    if not request.session.get('usuario_id'):
-        return redirect('login')
     usuario_actual = Usuario.objects.get(id=request.session['usuario_id'])
-    if usuario_actual.rol != 'administrador':
-        return render(request, 'web/error_permiso.html', status=403)
     usuarios = Usuario.objects.exclude(id=usuario_actual.id)
     return render(request, 'web/admin_usuarios.html', {
         'usuarios': usuarios,
         **obtener_usuario_nombre(request)
     })
 
-# Vista para eliminar usuario (desactivada por ahora)
 @csrf_exempt
+@solo_rol_permitido(roles=['administrador'])
 def eliminar_usuario(request, usuario_id):
     if request.method == 'POST':
-        usuario_actual = Usuario.objects.get(id=request.session.get('usuario_id'))
-        if usuario_actual.rol == 'administrador':
+        usuario = Usuario.objects.get(id=request.session.get('usuario_id'))
+        if usuario.rol == 'administrador':
             try:
                 usuario = Usuario.objects.get(id=usuario_id)
                 usuario.delete()
@@ -146,35 +156,66 @@ def eliminar_usuario(request, usuario_id):
                 pass
     return redirect('admin_usuarios')
 
-# Vista para editar usuario (desactivada por ahora)
+@solo_rol_permitido(roles=['administrador'])
 def editar_usuario(request, id):
     usuario = get_object_or_404(Usuario, id=id)
-    
     if request.method == 'POST':
         form = UsuarioForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
-            return redirect('admin_usuarios')  # Redirige de nuevo a la lista de usuarios
+            return redirect('admin_usuarios')
     else:
         form = UsuarioForm(instance=usuario)
-    
     return render(request, 'web/editar_usuario.html', {'form': form, 'usuario': usuario, **obtener_usuario_nombre(request)})
 
+@solo_rol_permitido(roles=['administrador', 'vendedor'])
+def agregar_juego(request):
+    if request.method == 'POST':
+        form = JuegoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('vista_juegos')
+    else:
+        form = JuegoForm()
+    return render(request, 'web/agregar_juego.html', {
+        'form': form,
+        **obtener_usuario_nombre(request)
+    })
 
+@solo_rol_permitido(roles=['administrador', 'vendedor'])
+def juego_gestion(request):
+    juegos = Juego.objects.all()
+    return render(request, 'web/juego_gestion.html', {'juegos': juegos, **obtener_usuario_nombre(request)})
 
-    usuario_id = request.session.get('usuario_id')
-    if not usuario_id:
-        return redirect('login')
-    usuario = Usuario.objects.get(id=usuario_id)
-    if usuario.rol not in ['administrador', 'vendedor']:
-        return render(request, 'web/error_permiso.html', status=403)
+@solo_rol_permitido(roles=['administrador', 'vendedor'])
+def editar_juego(request, id):
+    juego = get_object_or_404(Juego, id=id)
+    if request.method == 'POST':
+        form = JuegoForm(request.POST, instance=juego)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Juego modificado con éxito.')
+            return redirect('juego_gestion')
+    else:
+        form = JuegoForm(instance=juego)
+    return render(request, 'web/editar_juego.html', {'form': form, 'juego': juego, **obtener_usuario_nombre(request)})
+
+@solo_rol_permitido(roles=['administrador'])
+def eliminar_juego(request, id):
+    juego = get_object_or_404(Juego, id=id)
+    if request.method == 'POST':
+        messages.error(request, 'Error: No se puede eliminar el juego. Operación desactivada temporalmente.')
+        return redirect('juego_gestion')
+    return render(request, 'web/confirm_eliminar_juego.html', {'juego': juego, **obtener_usuario_nombre(request)})
+
+@solo_rol_permitido(roles=['administrador', 'vendedor'])
+def categoria_gestion(request):
     categorias = Categoria.objects.all()
-    return render(request, 'web/categorias.html', {
+    return render(request, 'web/categoria_gestion.html', {
         'categorias': categorias,
         **obtener_usuario_nombre(request)
     })
 
-# Categorias individuales
 def categoria_carreras(request):
     categoria = get_object_or_404(Categoria, nombre__iexact="Carreras")
     juegos = Juego.objects.filter(categoria=categoria)
@@ -209,74 +250,3 @@ def detalle_juego(request, juego_id):
     juego = get_object_or_404(Juego, pk=juego_id)
     return render(request, 'web/detalle.html', {'juego': juego, **obtener_usuario_nombre(request)})
 
-
-
-# Vista para agregar juego (desactivada por ahora)
-def agregar_juego(request):
-    usuario_id = request.session.get('usuario_id')
-    if not usuario_id:
-        return redirect('login')
-
-    usuario = Usuario.objects.get(id=usuario_id)
-    if usuario.rol not in ['administrador', 'vendedor']:
-        return render(request, 'web/error_permiso.html', status=403)
-
-    if request.method == 'POST':
-        form = JuegoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('vista_juegos')
-    else:
-        form = JuegoForm()
-
-    return render(request, 'web/agregar_juego.html', {
-        'form': form,
-        **obtener_usuario_nombre(request)
-    })
-
-
-
-# Vista para gestions de juegos
-def juego_gestion(request):
-    juegos = Juego.objects.all()  # Obtener todos los juegos registrados
-    return render(request, 'web/juego_gestion.html', {'juegos': juegos, **obtener_usuario_nombre(request)})
-
-# Vista para editar un juego (desactivado por ahora)
-def editar_juego(request, id):
-    juego = get_object_or_404(Juego, id=id)  # Trae el juego por su id
-    if request.method == 'POST':
-        form = JuegoForm(request.POST, instance=juego)  # Suponiendo que tienes un formulario de juego
-        if form.is_valid():
-            form.save()  # Guarda los cambios
-            messages.success(request, 'Juego modificado con éxito.')
-            return redirect('web/juego_gestion.html')
-    else:
-        form = JuegoForm(instance=juego)
-    return render(request, 'web/editar_juego.html', {'form': form, 'juego': juego, **obtener_usuario_nombre(request)})
-
-# Vista para eliminar un juego (desactivada por ahora)
-def eliminar_juego(request, id):
-    juego = get_object_or_404(Juego, id=id)
-    if request.method == 'POST':
-        # No eliminamos el juego, solo mostramos un mensaje de error
-        # No se eliminan juegos por ahora ya que influye en el diseño básico de la web
-        messages.error(request, 'Error: No se puede eliminar el juego. Operación desactivada temporalmente.')
-        return redirect('juego_gestion')  # Redirige de nuevo a la página de gestión de juegos
-
-    return render(request, 'web/confirm_eliminar_juego.html', {'juego': juego, **obtener_usuario_nombre(request)})
-
-# Vista para gestión de categoria
-def categoria_gestion(request):
-    usuario_id = request.session.get('usuario_id')
-    if not usuario_id:
-        return redirect('login')
-
-    usuario = Usuario.objects.get(id=usuario_id)
-    if usuario.rol not in ['administrador', 'vendedor']:
-        return render(request, 'web/error_permiso.html', status=403)
-
-    categorias = Categoria.objects.all()
-    return render(request, 'web/categoria_gestion.html', {
-        'categorias': categorias,
-        **obtener_usuario_nombre(request)
-    })
