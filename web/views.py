@@ -181,14 +181,20 @@ def eliminar_usuario(request, usuario_id):
 @solo_rol_permitido(roles=['administrador'])
 def editar_usuario(request, id):
     usuario = get_object_or_404(Usuario, id=id)
+    
     if request.method == 'POST':
-        form = UsuarioForm(request.POST, instance=usuario)
+        form = PerfilForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
             return redirect('admin_usuarios')
     else:
-        form = UsuarioForm(instance=usuario)
-    return render(request, 'web/editar_usuario.html', {'form': form, 'usuario': usuario, **obtener_usuario_nombre(request)})
+        form = PerfilForm(instance=usuario)
+
+    return render(request, 'web/editar_usuario.html', {
+        'form': form,
+        'usuario': usuario,
+        **obtener_usuario_nombre(request)
+    })
 
 @solo_rol_permitido(roles=['administrador', 'vendedor'])
 def agregar_juego(request):
