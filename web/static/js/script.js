@@ -1,20 +1,5 @@
 $(document).ready(function () {
 
-    // RECUPERAR
-    $('#recuperarForm').on('submit', function (e) {
-        e.preventDefault();
-
-        const email = $('#correo').val().trim();
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!emailRegex.test(email)) {
-            alert("Por favor, ingresa un correo válido.");
-        } else {
-            alert("Enlace de recuperación enviado a tu correo.");
-            $('#recuperarForm')[0].reset();
-        }
-    });
-
     // PERFIL
     $('#perfilForm').on('submit', function (e) {
         e.preventDefault();

@@ -10,6 +10,7 @@ urlpatterns = [
     path('registro/ajax/', views.registro_ajax, name='registro_ajax'),
     path('perfil/', views.perfil, name='perfil'),
     path('recuperar/', views.recuperar, name='recuperar'),
+    path('recuperar_ajax/', views.recuperar_ajax, name='recuperar_ajax'),
     path('contacto/', views.contacto, name='contacto'),
     path('carrito/', views.carrito, name='carrito'),
     path('registro/', views.registro, name='registro'),

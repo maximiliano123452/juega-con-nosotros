@@ -6,6 +6,8 @@ from core.forms import UsuarioForm, LoginForm, PerfilForm, JuegoForm
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+import json
+
 
 # Decorador para proteger vistas según el rol del usuario
 def solo_rol_permitido(roles=[]):
@@ -20,9 +22,12 @@ def solo_rol_permitido(roles=[]):
             if usuario.rol in roles:
                 return funcion(request, *args, **kwargs)
             else:
-                return render(request, 'web/error_permiso.html', status=403)
+                datos_usuario = obtener_usuario_nombre(request)
+                return render(request, 'web/error_permiso.html', context=datos_usuario, status=403)
+
         return wrapper
     return decorador
+
 
 # para obtener datos del usuario logueado
 def obtener_usuario_nombre(request):
@@ -133,6 +138,23 @@ def perfil(request):
 
 def recuperar(request):
     return render(request, 'web/recuperar.html', obtener_usuario_nombre(request))
+
+def recuperar_ajax(request):
+    if request.method == 'POST':
+        print("✅ Vista recuperar_ajax fue llamada")
+        datos = json.loads(request.body)
+        correo = datos.get('correo')
+        print(f"""
+                📨 Simulación de correo enviado:
+
+                Para: {correo}
+
+                Instrucciones para recuperar contraseña.
+
+                Juega con Nosotros
+                """)
+        return JsonResponse({'mensaje': 'Correo procesado'})
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 @solo_rol_permitido(roles=['administrador'])
 def admin_usuarios(request):

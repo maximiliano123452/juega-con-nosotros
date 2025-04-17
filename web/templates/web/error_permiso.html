@@ -11,8 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
-
-
 <body>
     <header>
         <h1>Juega con Nosotros</h1>
@@ -79,49 +77,23 @@
     </div>
     {% endif %}
 
+
     <div class="contenedor-principal">
-        <div class="container">
-            <h2>Lista de Usuarios Registrados</h2>
-            <div style="overflow-x: auto;">
-            <table class="table table-striped table-bordered" style="width: 100%; table-layout: fixed; word-wrap: break-word; font-size: 20px;">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Acciones</th>
-                        <th>Nombre</th>
-                        <th>Usuario</th>
-                        <th>Correo</th>
-                        <th>Rol</th>
-                        <th>Fecha Nacimiento</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for usuario in usuarios %}
-                    <tr>
-                        <td>
-                            <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 5px;">
-                                <form method="get" action="{% url 'editar_usuario' usuario.id %}">
-                                    <button type="submit" class="btn btn-warning btn-sm" style="font-size: 18px; border-radius: 7px;">Modificar</button>
-                                </form>
-                                
-                                <form method="POST" action="{% url 'eliminar_usuario' usuario.id %}" onsubmit="return confirm('¿Estás seguro de eliminar este usuario?');">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger btn-sm" style="font-size: 18px; border-radius: 7px;">Eliminar</button>
-                                </form>
-                            </div>
-                        </td>
-                        <td>{{ usuario.nombre_completo }}</td>
-                        <td>{{ usuario.nombre_usuario }}</td>
-                        <td>{{ usuario.correo_electronico }}</td>
-                        <td>{{ usuario.rol|capfirst }}</td>
-                        <td>{{ usuario.fecha_nacimiento }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr><td colspan="6" class="text-center">No hay usuarios registrados.</td></tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+      <div class="col-12 d-flex justify-content-center">
+        <h2 class="titulo">No tienes permisos suficientes para acceder a esta página.</h2>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="contenido">
+          <p>
+            Si crees que es un error, contacta a un administrador.
+          </p>
+            <div class="carrito-link mt-3 text-center">
+              <p><a href="{% url 'index' %}">Volver al inicio</a></p>
+          </div>
         </div>
-    </div>
+      </div>
+
+
     </div>
     
 
@@ -129,5 +101,7 @@
         <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
         <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
     </footer>
-</body>
+</body> 
 </html>
+
+
