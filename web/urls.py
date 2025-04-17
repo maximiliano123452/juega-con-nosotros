@@ -13,19 +13,21 @@ urlpatterns = [
     path('contacto/', views.contacto, name='contacto'),
     path('carrito/', views.carrito, name='carrito'),
     path('registro/', views.registro, name='registro'),
+    path('agregar_juego/', views.agregar_juego, name='agregar_juego'),
+    path('editar_usuario/<int:id>/', views.editar_usuario, name='editar_usuario'),
 
     # Vista protegida solo para administradores
     path('gestion/usuarios/', views.admin_usuarios, name='admin_usuarios'),
     path('gestion/usuarios/eliminar/<int:usuario_id>/', views.eliminar_usuario, name='eliminar_usuario'),
 
-    # Vistas protegidas por rol para CRUD de Juegos y Categorías
-    path('gestion/juegos/', views.vista_juegos, name='vista_juegos'),
-    path('gestion/categorias/', views.vista_categorias, name='vista_categorias'),
 
     # Ruta dinámica para las categorías
     path('categoria/<int:categoria_id>/', views.subcategoria, name='subcategoria'),
 
     # Ruta dinámica para juegos
     path('juego/<int:juego_id>/', views.detalle_juego, name='detalle_juego'),
-]
 
+    path('/juego/gestion/', views.juego_gestion, name='juego_gestion'), 
+    path('juego/gestion/editar/<int:id>/', views.editar_juego, name='editar_juego'),  # Ruta para editar juegos
+    path('juego/gestion/eliminar/<int:id>/', views.eliminar_juego, name='eliminar_juego'),  # Ruta para eliminar juegos
+]

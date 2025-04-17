@@ -146,8 +146,24 @@ def eliminar_usuario(request, usuario_id):
                 pass
     return redirect('admin_usuarios')
 
+# Vista para editar usuario
+def editar_usuario(request, id):
+    usuario = get_object_or_404(Usuario, id=id)
+    
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_usuarios')  # Redirige de nuevo a la lista de usuarios
+    else:
+        form = UsuarioForm(instance=usuario)
+    
+    return render(request, 'web/editar_usuario.html', {'form': form, 'usuario': usuario, **obtener_usuario_nombre(request)})
+
+
+
 # Vistas de juegos y categorias protegidas por rol
-def vista_juegos(request):
+#def vista_juegos(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect('login')
@@ -160,7 +176,7 @@ def vista_juegos(request):
         **obtener_usuario_nombre(request)
     })
 
-def vista_categorias(request):
+#def vista_categorias(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect('login')
@@ -208,6 +224,8 @@ def detalle_juego(request, juego_id):
     juego = get_object_or_404(Juego, pk=juego_id)
     return render(request, 'web/detalle.html', {'juego': juego, **obtener_usuario_nombre(request)})
 
+
+
 # Vista para agregar juego
 def agregar_juego(request):
     usuario_id = request.session.get('usuario_id')
@@ -230,3 +248,33 @@ def agregar_juego(request):
         'form': form,
         **obtener_usuario_nombre(request)
     })
+
+
+
+
+def juego_gestion(request):
+    juegos = Juego.objects.all()  # Obtener todos los juegos registrados
+    return render(request, 'web/juego_gestion.html', {'juegos': juegos, **obtener_usuario_nombre(request)})
+
+# Vista para editar un juego
+def editar_juego(request, id):
+    juego = get_object_or_404(Juego, id=id)  # Trae el juego por su id
+    if request.method == 'POST':
+        form = JuegoForm(request.POST, instance=juego)  # Suponiendo que tienes un formulario de juego
+        if form.is_valid():
+            form.save()  # Guarda los cambios
+            messages.success(request, 'Juego modificado con éxito.')
+            return redirect('web/juego_gestion.html')
+    else:
+        form = JuegoForm(instance=juego)
+    return render(request, 'web/editar_juego.html', {'form': form, 'juego': juego, **obtener_usuario_nombre(request)})
+
+def eliminar_juego(request, id):
+    juego = get_object_or_404(Juego, id=id)
+    if request.method == 'POST':
+        # No eliminamos el juego, solo mostramos un mensaje de error
+        # No se eliminan juegos por ahora ya que influye en el diseño básico de la web
+        messages.error(request, 'Error: No se puede eliminar el juego. Operación desactivada temporalmente.')
+        return redirect('juego_gestion')  # Redirige de nuevo a la página de gestión de juegos
+
+    return render(request, 'web/confirm_eliminar_juego.html', {'juego': juego, **obtener_usuario_nombre(request)})

@@ -40,7 +40,7 @@ class UsuarioForm(forms.ModelForm):
         widgets = {
             'nombre_completo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingresa Nombres y Apellidos'}),
             'nombre_usuario': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingresa tu Nombre de Usuario'}),
-            'correo_electronico': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Ingresa tu Correo Electrónico'}),
+            'correo_electronico': forms.EmailInput(attrs={'class': 'form-control'}),
             'direccion_despacho': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Escribe tu dirección (Opcional)'}),
             'rol': forms.Select(attrs={'class': 'form-select'}),
         }
@@ -141,10 +141,12 @@ class PerfilForm(forms.ModelForm):
 class JuegoForm(forms.ModelForm):
     class Meta:
         model = Juego
-        fields = ['nombre', 'descripcion', 'precio', 'categoria']
+        fields = ['nombre', 'descripcion', 'precio', 'categoria', 'plataformas', 'imagen']  # Incluir todos los campos del modelo
         widgets = {
             'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del juego'}),
             'descripcion': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Descripción'}),
             'precio': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'placeholder': 'Precio'}),
             'categoria': forms.Select(attrs={'class': 'form-select'}),
+            'plataformas': forms.SelectMultiple(attrs={'class': 'form-select'}),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
