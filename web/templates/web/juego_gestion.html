@@ -93,11 +93,13 @@
                 <tr>
                     <td>
                         <div style="display: flex; justify-content: space-between; gap: 5px;">
-                            <form method="get" action="{% url 'editar_juego' juego.id %}">
+                           <!-- OPCIÓN DESACTIVADA TEMPORALMENTE - AFECTA DISEÑO DE WEB.
+                                <form method="get" action="{% url 'editar_juego' juego.id %}">
                                 <button type="submit" class="btn btn-warning btn-sm" style="font-size: 20px; border-radius: 7px;">Modificar</button>
-                            </form>
+                            </form> -->
                             
-                            <!--<form method="POST" action="{% url 'eliminar_juego' juego.id %}" onsubmit="return confirm('¿Estás seguro de eliminar este juego?');">
+                            <!-- OPCIÓN DESACTIVADA TEMPORALMENTE - AFECTA DISEÑO DE WEB.
+                                <form method="POST" action="{% url 'eliminar_juego' juego.id %}" onsubmit="return confirm('¿Estás seguro de eliminar este juego?');">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger btn-sm" style="font-size: 20px; border-radius: 7px;">Eliminar</button>
                             </form>     Eliminar juegos ha sido desactivado temporalmente ya que puede influir en el diseño del sitio web -->
