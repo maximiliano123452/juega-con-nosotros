@@ -73,69 +73,22 @@
     {% endif %}
     
 
-  <div class="container-formulario">
-    <div class="container mt-5 mx-auto">
-      <div class="row">
-          <div class="col-12 d-flex justify-content-center">
-              <h2 class="titulo">👤 Mi Perfil</h2>
-          </div>
-          {% if messages %}
-          <div class="container mt-4">
-              {% for message in messages %}
-              <div class="alert alert-success" role="alert">
-                  {{ message }}
-              </div>
-              {% endfor %}
-          </div>
-          {% endif %}
-
-
-          <div class="col-12 col-md-8">
-              <form id="perfilForm" method="POST" class="contacto-form mx-auto" style="max-width: 600px;">
-                  {% csrf_token %}
-                  {{ form.as_p }}  
-                  {% if form.errors %}
-                    <div class="alert alert-danger mt-3">
-                        <strong>Errores:</strong>
-                        <ul>
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                            <li><strong>{{ field.label }}</strong>: {{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                        {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                   {% endif %}
-
-                 
-
-                  <div class="mb-3">
-                      <label for="rol" class="form-label"></label>
-                      <p class="text-muted">Ingresa contraseña <br>sólo si quieres cambiarla.</p>
-                  </div>
-                  
-                  <div class="d-grid gap-3">
-                      <button type="submit" class="btn btn-custom">Guardar Cambios</button>
-
-                  </div>
-              </form>
-
-              <div class="login-link mt-3 text-center">
-                  <p><a href="{% url 'index' %}">Volver al Inicio</a></p>
-              </div>
-          </div>
-      </div>
+    <div class="contenedor-principal">
+        <h2>Editar Usuario: {{ usuario.nombre_completo }}</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        </form>
     </div>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
-    <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
-  </footer>
 
 
-</body>
+    <footer>
+        <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
+        <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
+    </footer>
+</body> 
 </html>
+
+
+

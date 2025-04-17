@@ -71,71 +71,57 @@
         </strong>!
     </div>
     {% endif %}
+        
     
 
-  <div class="container-formulario">
-    <div class="container mt-5 mx-auto">
-      <div class="row">
-          <div class="col-12 d-flex justify-content-center">
-              <h2 class="titulo">👤 Mi Perfil</h2>
-          </div>
-          {% if messages %}
-          <div class="container mt-4">
-              {% for message in messages %}
-              <div class="alert alert-success" role="alert">
-                  {{ message }}
-              </div>
-              {% endfor %}
-          </div>
-          {% endif %}
-
-
-          <div class="col-12 col-md-8">
-              <form id="perfilForm" method="POST" class="contacto-form mx-auto" style="max-width: 600px;">
-                  {% csrf_token %}
-                  {{ form.as_p }}  
-                  {% if form.errors %}
-                    <div class="alert alert-danger mt-3">
-                        <strong>Errores:</strong>
-                        <ul>
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                            <li><strong>{{ field.label }}</strong>: {{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                        {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                   {% endif %}
-
-                 
-
-                  <div class="mb-3">
-                      <label for="rol" class="form-label"></label>
-                      <p class="text-muted">Ingresa contraseña <br>sólo si quieres cambiarla.</p>
-                  </div>
-                  
-                  <div class="d-grid gap-3">
-                      <button type="submit" class="btn btn-custom">Guardar Cambios</button>
-
-                  </div>
-              </form>
-
-              <div class="login-link mt-3 text-center">
-                  <p><a href="{% url 'index' %}">Volver al Inicio</a></p>
-              </div>
-          </div>
-      </div>
+    <div class="contenedor-principal">
+        <h2>Lista de Juegos Registrados</h2>
+        <table class="table table-striped table-bordered" style="border-spacing: 40px 20px; font-size: 24px;">
+            <thead class="table-dark">
+                <tr>
+                    <th>Acciones</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Plataformas</th>
+                    <th>Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for juego in juegos %}
+                <tr>
+                    <td>
+                        <div style="display: flex; justify-content: space-between; gap: 5px;">
+                            <form method="get" action="{% url 'editar_juego' juego.id %}">
+                                <button type="submit" class="btn btn-warning btn-sm" style="font-size: 20px; border-radius: 7px;">Modificar</button>
+                            </form>
+                            
+                            <!--<form method="POST" action="{% url 'eliminar_juego' juego.id %}" onsubmit="return confirm('¿Estás seguro de eliminar este juego?');">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" style="font-size: 20px; border-radius: 7px;">Eliminar</button>
+                            </form>     Eliminar juegos ha sido desactivado temporalmente ya que puede influir en el diseño del sitio web -->
+                        </div>
+                    </td>
+                    <td>{{ juego.nombre }}</td>
+                    <td>{{ juego.descripcion }}</td>
+                    <td>${{ juego.precio }}</td>
+                    <td>{{ juego.categoria }}</td>
+                    <td>{{ juego.plataformas }}</td>
+                    <td><img src="{{ juego.imagen }}" alt="Imagen de {{ juego.nombre }}" width="100"></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-center">No hay juegos registrados.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-  </div>
 
-  <footer>
-    <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
-    <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
-  </footer>
-
-
+  
+    <footer>
+        <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
+        <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

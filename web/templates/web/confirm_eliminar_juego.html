@@ -38,11 +38,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'juego_gestion' %}" title="Gestión Juegos">🎮 Gestión Juegos</a>  <!-- Nuevo enlace aquí -->
+                    <a class="nav-link" href="{% url 'juego_gestion' %}" title="Gestión Juegos">🎮 Gestión Juegos</a>
                 </li>
-                {% endif %}
-
-                {% if usuario_rol == 'administrador' or usuario_rol == 'vendedor' %}
                 {% endif %}
 
                 <li class="nav-item">
@@ -51,7 +48,7 @@
                     </a>
                 </li>
                 {% endif %}
-
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'carrito' %}" title="Carrito de Compras">
                         <img src="{% static 'img/icono-carrito.png' %}" alt="Carrito" class="rounded-circle">
@@ -61,26 +58,21 @@
         </div>
     </nav>
 
-    {% if usuario_nombre %}
-    <div class="bienvenida" style="background-color: #5f449a; color: white; text-align: center; padding: 10px; font-size: 18px;">
-        👋 Bienvenido, 
-        <strong>
-            <a href="{% url 'perfil' %}" style="color: white; text-decoration: underline;">
-                {{ usuario_nombre }}  ({{ usuario_rol }})
-            </a>
-        </strong>!
+    {% if messages %}
+    <div class="alert alert-danger" role="alert" style="text-align: center;">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
     </div>
     {% endif %}
-
+    
     <div class="contenedor-principal">
-        <div class="categorias">
-            {% for categoria in categorias %}
-            <div class="categoria" onclick="location.href='{% url 'subcategoria' categoria.id %}'">
-                <img src="{{ categoria.imagen }}" alt="{{ categoria.nombre }}">
-                <h3>{{ categoria.titulo }}</h3>
-            </div>
-            {% endfor %}
-        </div>
+        <p>¿Estás seguro de eliminar el juego "{{ juego.nombre }}"?</p>
+
+        <p>¡Error! La opción de eliminar está desactivada temporalmente.</p>
+
+        <!-- Formulario desactivado, ya que no se eliminará el juego -->
+        <a href="{% url 'juego_gestion' %}">Volver a la gestión de juegos</a>
     </div>
 
     <footer>
@@ -89,6 +81,3 @@
     </footer>
 </body> 
 </html>
-
-
-
