@@ -133,7 +133,7 @@ def admin_usuarios(request):
         **obtener_usuario_nombre(request)
     })
 
-# Vista para eliminar usuario
+# Vista para eliminar usuario (desactivada por ahora)
 @csrf_exempt
 def eliminar_usuario(request, usuario_id):
     if request.method == 'POST':
@@ -146,7 +146,7 @@ def eliminar_usuario(request, usuario_id):
                 pass
     return redirect('admin_usuarios')
 
-# Vista para editar usuario
+# Vista para editar usuario (desactivada por ahora)
 def editar_usuario(request, id):
     usuario = get_object_or_404(Usuario, id=id)
     
@@ -162,21 +162,6 @@ def editar_usuario(request, id):
 
 
 
-# Vistas de juegos y categorias protegidas por rol
-#def vista_juegos(request):
-    usuario_id = request.session.get('usuario_id')
-    if not usuario_id:
-        return redirect('login')
-    usuario = Usuario.objects.get(id=usuario_id)
-    if usuario.rol not in ['administrador', 'vendedor']:
-        return render(request, 'web/error_permiso.html', status=403)
-    juegos = Juego.objects.select_related('categoria').all()
-    return render(request, 'web/juegos.html', {
-        'juegos': juegos,
-        **obtener_usuario_nombre(request)
-    })
-
-#def vista_categorias(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
         return redirect('login')
@@ -226,7 +211,7 @@ def detalle_juego(request, juego_id):
 
 
 
-# Vista para agregar juego
+# Vista para agregar juego (desactivada por ahora)
 def agregar_juego(request):
     usuario_id = request.session.get('usuario_id')
     if not usuario_id:
@@ -251,12 +236,12 @@ def agregar_juego(request):
 
 
 
-
+# Vista para gestions de juegos
 def juego_gestion(request):
     juegos = Juego.objects.all()  # Obtener todos los juegos registrados
     return render(request, 'web/juego_gestion.html', {'juegos': juegos, **obtener_usuario_nombre(request)})
 
-# Vista para editar un juego
+# Vista para editar un juego (desactivado por ahora)
 def editar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)  # Trae el juego por su id
     if request.method == 'POST':
@@ -269,6 +254,7 @@ def editar_juego(request, id):
         form = JuegoForm(instance=juego)
     return render(request, 'web/editar_juego.html', {'form': form, 'juego': juego, **obtener_usuario_nombre(request)})
 
+# Vista para eliminar un juego (desactivada por ahora)
 def eliminar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
     if request.method == 'POST':
@@ -278,3 +264,19 @@ def eliminar_juego(request, id):
         return redirect('juego_gestion')  # Redirige de nuevo a la página de gestión de juegos
 
     return render(request, 'web/confirm_eliminar_juego.html', {'juego': juego, **obtener_usuario_nombre(request)})
+
+# Vista para gestión de categoria
+def categoria_gestion(request):
+    usuario_id = request.session.get('usuario_id')
+    if not usuario_id:
+        return redirect('login')
+
+    usuario = Usuario.objects.get(id=usuario_id)
+    if usuario.rol not in ['administrador', 'vendedor']:
+        return render(request, 'web/error_permiso.html', status=403)
+
+    categorias = Categoria.objects.all()
+    return render(request, 'web/categoria_gestion.html', {
+        'categorias': categorias,
+        **obtener_usuario_nombre(request)
+    })

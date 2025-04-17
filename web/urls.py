@@ -20,6 +20,14 @@ urlpatterns = [
     path('gestion/usuarios/', views.admin_usuarios, name='admin_usuarios'),
     path('gestion/usuarios/eliminar/<int:usuario_id>/', views.eliminar_usuario, name='eliminar_usuario'),
 
+    # Ruta para gestión de categorias
+    path('categoria/gestion/', views.categoria_gestion, name='categoria_gestion'),
+
+    # Rutas para la gestión de juegos
+    path('juego/gestion/', views.juego_gestion, name='juego_gestion'), 
+    path('juego/gestion/editar/<int:id>/', views.editar_juego, name='editar_juego'),  # Ruta para editar juegos
+    path('juego/gestion/eliminar/<int:id>/', views.eliminar_juego, name='eliminar_juego'),  # Ruta para eliminar juegos
+
 
     # Ruta dinámica para las categorías
     path('categoria/<int:categoria_id>/', views.subcategoria, name='subcategoria'),
@@ -27,7 +35,5 @@ urlpatterns = [
     # Ruta dinámica para juegos
     path('juego/<int:juego_id>/', views.detalle_juego, name='detalle_juego'),
 
-    path('juego/gestion/', views.juego_gestion, name='juego_gestion'), 
-    path('juego/gestion/editar/<int:id>/', views.editar_juego, name='editar_juego'),  # Ruta para editar juegos
-    path('juego/gestion/eliminar/<int:id>/', views.eliminar_juego, name='eliminar_juego'),  # Ruta para eliminar juegos
 ]
+
