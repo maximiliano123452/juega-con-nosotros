@@ -27,7 +27,7 @@ urlpatterns = [
     # Ruta dinámica para juegos
     path('juego/<int:juego_id>/', views.detalle_juego, name='detalle_juego'),
 
-    path('/juego/gestion/', views.juego_gestion, name='juego_gestion'), 
+    path('juego/gestion/', views.juego_gestion, name='juego_gestion'), 
     path('juego/gestion/editar/<int:id>/', views.editar_juego, name='editar_juego'),  # Ruta para editar juegos
     path('juego/gestion/eliminar/<int:id>/', views.eliminar_juego, name='eliminar_juego'),  # Ruta para eliminar juegos
 ]
