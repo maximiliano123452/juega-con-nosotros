@@ -1,18 +1,17 @@
 from pathlib import Path
 import os
+from decouple import config  # Para variables de entorno
 
-# BASE_DIR es la raíz del proyecto
+# Crea rutas en el proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Clave secreta (para desarrollo está bien)
-SECRET_KEY = 'django-insecure-vw$(fv*vnm_$)yixzaz7wl0re8%cqo54x_n-14%klu5vx##h_v'
+# Security - Uso de variables de entorno
+SECRET_KEY = config('SECRET_KEY')  # Ahora en .env
+DEBUG = config('DEBUG', default=False, cast=bool)  # Mayor seguridad
 
-# Activa modo desarrollo (¡no para producción!)
-DEBUG = True
+ALLOWED_HOSTS = ['*'] if DEBUG else []  # Temporal para desarrollo
 
-ALLOWED_HOSTS = []
-
-# Apps instaladas
+# Definición de aplicaciones Django
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -20,11 +19,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web',   # App principal
-    'core',  # App para base de datos
+    'web',
+    'core',
 ]
 
-# Middleware que usa Django
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -35,14 +33,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# URL principal
+#URL PRINCIPAL
 ROOT_URLCONF = 'tienda_juegos.urls'
 
-# Configuración de plantillas HTML
+#CONFIGURACION PLANTILLAS HTML
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -55,16 +53,18 @@ TEMPLATES = [
     },
 ]
 
-# Aplicación WSGI
 WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 
-#  Base de datos Oracle activa (usando alias del wallet TNS)
+# Database 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'LJMKN6ANKIFGGA4W_LOW',  # Este alias debe coincidir con el de tnsnames.ora, se pueden agregar más alias también.
-        'USER': 'admin_jcn',
-        'PASSWORD': 'Prueba1234567!',
+        'NAME': config('DB_DSN', default='g4db_low'),
+        'USER': config('DB_USERNAME'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'OPTIONS': {
+            'threaded': True,  # Recomendado para Oracle
+        },
     }
 }
 
@@ -76,7 +76,7 @@ DATABASES = {
 #     }
 # }
 
-# Validadores de contraseñas
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -84,21 +84,24 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Configuración regional
+# Internacionalización
 LANGUAGE_CODE = 'es-cl'
 TIME_ZONE = 'America/Santiago'
 USE_I18N = True
 USE_TZ = True
 
-# Archivos estáticos (CSS, JS, imágenes)
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'web/static')]
+STATICFILES_DIRS = [BASE_DIR / 'web/static']  # Modern Path syntax
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # For production
 
-# Archivos multimedia (opcional)
+# Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
-
-
-
-
+# Security recommendations (add these)
+if not DEBUG:
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
