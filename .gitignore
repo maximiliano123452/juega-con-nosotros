@@ -14,3 +14,12 @@ Thumbs.db
 
 # Respaldos y carpetas temporales
 *backup*/
+
+# Oracle Wallet
+wallet_g4db/
+oracle_wallet/
+*.ora
+*.sso
+*.p12
+*.jks
+*.pem
