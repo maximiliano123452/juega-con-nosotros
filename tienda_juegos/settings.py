@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-from decouple import config  # Para variables de entorno
+from decouple import config # Para variables de entorno
 
 # Crea rutas en el proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -62,11 +62,12 @@ DATABASES = {
         'NAME': config('DB_DSN', default='g4db_low'),
         'USER': config('DB_USERNAME'),
         'PASSWORD': config('DB_PASSWORD'),
-        'OPTIONS': {
-            'threaded': True,  # Recomendado para Oracle
-        },
+        #'OPTIONS': {
+         #   'threaded': True,  # Recomendado para Oracle
+        #},
     }
 }
+
 
 # SQLite (comentado por si lo quieres usar como respaldo)
 # DATABASES = {
