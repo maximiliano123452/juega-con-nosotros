@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web',
     'core',
-    'api',                       # App API ACTIVADA ✅
+    'api',                       # App API 
 ]
 
 # Middleware
