@@ -14,6 +14,7 @@ ALLOWED_HOSTS = ['*'] if DEBUG else []
 # Aplicaciones instaladas
 INSTALLED_APPS = [
     'rest_framework',            # API REST
+    'rest_framework.authtoken', # API REST Token
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -101,3 +102,12 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
