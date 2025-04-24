@@ -6,7 +6,7 @@ from core.forms import UsuarioForm, LoginForm, PerfilForm, JuegoForm
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
-import json
+import json, requests
 
 
 # Decorador para proteger vistas según el rol del usuario
@@ -53,7 +53,47 @@ def obtener_usuario_nombre(request):
 def index(request):
     categorias = Categoria.objects.all()
     datos_usuario = obtener_usuario_nombre(request)
-    return render(request, 'web/index.html', {'categorias': categorias, **datos_usuario})
+    
+    # Llamar a la API de RAWG
+    url = "https://api.rawg.io/api/games"
+    params = {
+        'key': 'b5009a1140ad4ea68365396fed2e19ef',
+        'page_size': 5,
+        'ordering': '-added'
+    }
+
+    games = []
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()  # Esto lanza una excepción si el código de estado no es 200
+        if response.status_code == 200:
+            data = response.json()
+            for game in data.get('results', []):
+                # Verificar si rating existe y convertirlo a formato adecuado
+                rating = game.get('rating')
+                if rating:
+                    rating = str(rating).replace(',', '.')  # Asegurarse de que el rating se maneje correctamente
+                else:
+                    rating = 'No disponible'
+
+                games.append({
+                    'nombre': game.get('name'),
+                    'rating': rating,
+                    'imagen': game.get('background_image')
+                })
+    except requests.exceptions.RequestException as e:
+        print("Error al obtener juegos populares:", e)
+        games = []  # En caso de error, no se muestran juegos populares
+    except Exception as e:
+        print("Error inesperado:", e)
+        games = []
+
+    # Renderizar la plantilla con todo el contexto
+    return render(request, 'web/index.html', {
+        'categorias': categorias,
+        'games': games,
+        **datos_usuario
+    })
 
 def login(request):
     form = LoginForm()

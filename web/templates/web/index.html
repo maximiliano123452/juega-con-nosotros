@@ -77,22 +77,68 @@
     </div>
     {% endif %}
 
-    <div class="contenedor-principal">
-        <div class="categorias">
+    <div class="contenedor-principal" style="margin: 30px; text-align: center; display: flex; align-self: center;">
+        <!-- Categorías -->
+        <div class="categorias" style="flex: 1; padding-right: 20px; gap: 40px; ">
             {% for categoria in categorias %}
             <div class="categoria" onclick="location.href='{% url 'subcategoria' categoria.id %}'">
                 <img src="{{ categoria.imagen }}" alt="{{ categoria.nombre }}">
                 <h3>{{ categoria.titulo }}</h3>
             </div>
             {% endfor %}
+
+    
+          <!-- Botón de Juegos Populares -->
+          <div class="boton-juegos" style="text-align: center;">
+            <button id="boton-juegos" onclick="toggleJuegosPopulares()" style="padding: 10px 20px; background-color: #5f449a; color: white; border: none; border-radius: 10px; font-size: 16px;">
+                🎮 Ver Juegos Populares
+            </button>
         </div>
     </div>
+    
+    <!-- Juegos Populares (ocultos inicialmente) -->
+    <div id="juegos-populares" style="display: none; margin-top: 20px;" class="categorias">
+        <div class="categorias" style="flex: 1; padding-right: 20px;">
+            {% for game in games %}
+            <div class="categoria">
+                <img src="{{ game.imagen }}" alt="{{ game.nombre }}">
+                <p style="font-size: 16px; max-width:100; overflow-wrap: break-word; word-break: break-word;">
+                    Juego: <br>{{ game.nombre }}
+                </p>
+                <p>Rating: {{ game.rating }}/5.0</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+</div>
+
+
 
     <footer>
         <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
         <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
     </footer>
+    
+    <script>
+        function toggleJuegosPopulares() {
+        const contenedor = document.getElementById('juegos-populares');
+        const boton = document.getElementById('boton-juegos');
+        
+        // Alterna la visibilidad de los juegos populares
+        if (contenedor.style.display === 'none') {
+            contenedor.style.display = 'flex';
+            boton.textContent = '❌ Ocultar Juegos Populares'; // Cambia el texto del botón
+        } else {
+            contenedor.style.display = 'none';
+            boton.textContent = '🎮 Ver Juegos Populares'; // Restaura el texto original
+        }
+    }
+    </script>
+    
 </body> 
+
+
 </html>
 
 
