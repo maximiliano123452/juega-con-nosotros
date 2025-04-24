@@ -121,7 +121,9 @@ Para usar el token:
 	Value: Token pegartokenaquí
 	Enviar: Devuelve un JSON con todas las categorias de la base de datos. 
 
-	 parte 2: Consumo de API externa (RAWG Video Games) 
+
+
+Parte 2: Consumo de API externa (RAWG Video Games) 
 	 integramos una API externa gratuita de videojuegos para traer juegos populares actuales al sistema.
 	 ¿que hicimos?
 1. nos registramos en RAWG.io
