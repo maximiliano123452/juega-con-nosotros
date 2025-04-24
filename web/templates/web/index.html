@@ -119,23 +119,7 @@
         <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
         <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
     </footer>
-    
-    <script>
-        function toggleJuegosPopulares() {
-        const contenedor = document.getElementById('juegos-populares');
-        const boton = document.getElementById('boton-juegos');
-        
-        // Alterna la visibilidad de los juegos populares
-        if (contenedor.style.display === 'none') {
-            contenedor.style.display = 'flex';
-            boton.textContent = '❌ Ocultar Juegos Populares'; // Cambia el texto del botón
-        } else {
-            contenedor.style.display = 'none';
-            boton.textContent = '🎮 Ver Juegos Populares'; // Restaura el texto original
-        }
-    }
-    </script>
-    
+    <script src="{% static 'js/script.js' %}"></script>
 </body> 
 
 

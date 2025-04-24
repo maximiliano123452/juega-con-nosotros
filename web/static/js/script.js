@@ -40,3 +40,20 @@ $(document).ready(function () {
     });
 
 });
+
+// Función para mostrar u ocultar los juegos populares
+    function toggleJuegosPopulares() {
+        const contenedor = document.getElementById('juegos-populares');
+        const boton = document.getElementById('boton-juegos');
+        
+        // Alterna la visibilidad de los juegos populares
+        if (contenedor.style.display === 'none') {
+            contenedor.style.display = 'flex';
+            boton.textContent = '❌ Ocultar Juegos Populares'; // Cambia el texto del botón
+        } else {
+            contenedor.style.display = 'none';
+            boton.textContent = '🎮 Ver Juegos Populares'; // Restaura el texto original
+        }
+    }
+
+
