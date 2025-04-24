@@ -119,7 +119,15 @@ Para usar el token:
 	GET:  http://127.0.0.1:8000/api/categorias/
  	Headers: Authorization
 	Value: Token pegartokenaquí
-	Enviar: Devuelve un JSON con todas las categorias de la base de datos. 
+	Enviar: Devuelve un JSON con todas las categorias de la base de datos.
+
+    También se puede filtrar la API interna por nombre de categoria:
+
+    Ejemplo con Cozy:
+    GET:  http://127.0.0.1:8000/api/categorias/?nombre=cozy
+ 	Headers: Authorization
+	Value: Token pegartokenaquí
+	Enviar: Devuelve un JSON con la categoria Cozy.
 
 
 
