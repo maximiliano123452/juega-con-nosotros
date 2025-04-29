@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 import json, requests
+from api.views_externa import obtener_lanzamientos
 
 
 # Decorador para proteger vistas según el rol del usuario
@@ -318,3 +319,10 @@ def detalle_juego(request, juego_id):
     juego = get_object_or_404(Juego, pk=juego_id)
     return render(request, 'web/detalle.html', {'juego': juego, **obtener_usuario_nombre(request)})
 
+
+def lanzamientos(request):
+    juegos_lanzamiento = obtener_lanzamientos()
+    return render(request, 'web/lanzamientos.html', {
+        'lanzamientos': juegos_lanzamiento,
+        **obtener_usuario_nombre(request)
+    })

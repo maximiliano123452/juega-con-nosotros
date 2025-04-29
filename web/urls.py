@@ -36,6 +36,8 @@ urlpatterns = [
     # Ruta dinámica para juegos
     path('juego/<int:juego_id>/', views.detalle_juego, name='detalle_juego'),
 
+    # Ruta para la API de lanzamientos
+    path('lanzamientos/', views.lanzamientos, name='lanzamientos'),
 
 
 ]

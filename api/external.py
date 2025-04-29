@@ -14,3 +14,5 @@ def obtener_juegos_populares():
     except requests.RequestException as e:
         print(f"Error al conectar con RAWG: {e}")
         return []
+
+
