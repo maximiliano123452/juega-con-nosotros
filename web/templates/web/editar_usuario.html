@@ -1,162 +1,84 @@
+{% extends 'web/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juega con Nosotros - Tienda de Videojuegos</title>
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
+{% block title %}Editar Usuario{% endblock %}
 
-<body>
-    <header>
-        <h1>Juega con Nosotros</h1>
-        <h2 class="slogan">Descubre los mejores juegos al mejor precio</h2>
-    </header>
-    
-    <nav class="navbar bg-dark navbar-dark">
-        <div class="container">
-            <ul class="navbar-nav ms-auto d-flex flex-row gap-4">
-                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Categorías</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
-                
-                {% if not usuario_nombre %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'registro' %}">Registro</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
-                {% endif %}
+{% block content %}
 
+<div class="contenedor-principal">
+    <h2>Editar Usuario: {{ usuario.nombre_completo }}</h2>
 
-                {% if usuario_rol == 'administrador' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin_usuarios' %}" title="Admin Usuarios">
-                        👤 Admin Usuarios
-                    </a>
-                </li>
-                
-                {% endif %}
+    <form method="POST" class="mx-auto" style="max-width: 600px;">
+        {% csrf_token %}
 
-                {% if usuario_rol == 'administrador' or usuario_rol == 'vendedor' %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'juego_gestion' %}" title="Gestión Juegos">🎮 Gestión Juegos</a>  <!-- Nuevo enlace aquí -->
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'categoria_gestion' %}">📁 Gestión Categorías</a>
-                </li>
-                {% endif %}
+        <div class="mb-3">
+            {{ form.nombre_completo.label_tag }}
+            {{ form.nombre_completo }}
+        </div>
 
-                {% if usuario_nombre %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+        <div class="mb-3">
+            {{ form.nombre_usuario.label_tag }}
+            {{ form.nombre_usuario }}
+        </div>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'perfil' %}" title="Mi Perfil">
-                        <img src="{% static 'img/icono-perfil.png' %}" alt="Perfil" class="rounded-circle">
-                    </a>
-                </li>
-                {% endif %}
+        <div class="mb-3">
+            {{ form.correo_electronico.label_tag }}
+            {{ form.correo_electronico }}
+        </div>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'carrito' %}" title="Carrito de Compras">
-                        <img src="{% static 'img/icono-carrito.png' %}" alt="Carrito" class="rounded-circle">
-                    </a>
-                </li>
+        <div class="mb-3">
+            {{ form.fecha_nacimiento.label_tag }}
+            {{ form.fecha_nacimiento }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.direccion_despacho.label_tag }}
+            {{ form.direccion_despacho }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.rol.label_tag }}
+            {{ form.rol }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.contrasena.label_tag }}
+            {{ form.contrasena }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.repetir_contrasena.label_tag }}
+            {{ form.repetir_contrasena }}
+        </div>
+
+        {% if form.errors %}
+        <div class="alert alert-danger mt-3">
+            <strong>Errores:</strong>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li><strong>{{ field.label }}</strong>: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
             </ul>
         </div>
-    </nav>
+        {% endif %}
 
-    {% if usuario_nombre %}
-    <div class="bienvenida" style="background-color: #5f449a; color: white; text-align: center; padding: 10px; font-size: 18px;">
-        Sesión iniciada como:  
-        <strong>
-            <a href="{% url 'perfil' %}" style="color: white; text-decoration: underline;">
-                {{ usuario_nombre }}  ({{ usuario_rol }})
-            </a>
-        </strong>!
-    </div>
-    {% endif %}
-    
+        <div class="mb-3 text-muted">
+            <p>Ingresa contraseña solo si deseas cambiarla.</p>
+        </div>
 
-    <div class="contenedor-principal">
-        <h2>Editar Usuario: {{ usuario.nombre_completo }}</h2>
-    
-        <form method="POST" class="mx-auto" style="max-width: 600px;">
-            {% csrf_token %}
-    
-            <div class="mb-3">
-                {{ form.nombre_completo.label_tag }}
-                {{ form.nombre_completo }}
-            </div>
-    
-            <div class="mb-3">
-                {{ form.nombre_usuario.label_tag }}
-                {{ form.nombre_usuario }}
-            </div>
-    
-            <div class="mb-3">
-                {{ form.correo_electronico.label_tag }}
-                {{ form.correo_electronico }}
-            </div>
-    
-            <div class="mb-3">
-                {{ form.fecha_nacimiento.label_tag }}
-                {{ form.fecha_nacimiento }}
-            </div>
-    
-            <div class="mb-3">
-                {{ form.direccion_despacho.label_tag }}
-                {{ form.direccion_despacho }}
-            </div>
-    
-            <div class="mb-3">
-                {{ form.rol.label_tag }}
-                {{ form.rol }}
-            </div>
-    
-            <div class="mb-3">
-                {{ form.contrasena.label_tag }}
-                {{ form.contrasena }}
-            </div>
-    
-            <div class="mb-3">
-                {{ form.repetir_contrasena.label_tag }}
-                {{ form.repetir_contrasena }}
-            </div>
-    
-            {% if form.errors %}
-            <div class="alert alert-danger mt-3">
-                <strong>Errores:</strong>
-                <ul>
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li><strong>{{ field.label }}</strong>: {{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                    {% for error in form.non_field_errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-    
-            <div class="mb-3 text-muted">
-                <p>Ingresa contraseña solo si deseas cambiarla.</p>
-            </div>
-    
-            <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-success">Guardar Cambios</button>
-            </div>
-        </form>
-    </div>
-    
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        </div>
+    </form>
+</div>
 
-    <footer>
-        <p>&copy; 2025 Juega con Nosotros. Todos los derechos reservados.</p>
-        <p>Este proyecto fue desarrollado por el Grupo 4 de Programación Web, Duoc UC 2025.</p>
-    </footer>
-</body> 
-</html>
+
+{% endblock %}
+
 
 
 

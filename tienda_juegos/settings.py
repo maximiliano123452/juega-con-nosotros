@@ -1,18 +1,20 @@
 from pathlib import Path
 import os
-from decouple import config  # Para variables de entorno
+from decouple import config
 
 # Crea rutas en el proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Security - Uso de variables de entorno
-SECRET_KEY = config('SECRET_KEY')  # Ahora en .env
-DEBUG = config('DEBUG', default=False, cast=bool)  # Mayor seguridad
+# Seguridad - Uso de variables de entorno
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*'] if DEBUG else []  # Temporal para desarrollo
+ALLOWED_HOSTS = ['*'] if DEBUG else []
 
-# Definición de aplicaciones Django
+# Aplicaciones instaladas
 INSTALLED_APPS = [
+    'rest_framework',            # API REST
+    'rest_framework.authtoken', # API REST Token
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -21,8 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'web',
     'core',
+    'api',                       # App API 
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -33,10 +37,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-#URL PRINCIPAL
+# URL principal
 ROOT_URLCONF = 'tienda_juegos.urls'
 
-#CONFIGURACION PLANTILLAS HTML
+# Configuración plantillas HTML
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -53,9 +57,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI
 WSGI_APPLICATION = 'tienda_juegos.wsgi.application'
 
-# Database 
+# Base de datos
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
@@ -63,20 +68,12 @@ DATABASES = {
         'USER': config('DB_USERNAME'),
         'PASSWORD': config('DB_PASSWORD'),
         'OPTIONS': {
-            'threaded': True,  # Recomendado para Oracle
+            'threaded': True,
         },
     }
 }
 
-# SQLite (comentado por si lo quieres usar como respaldo)
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# Password validation
+# Validaciones de contraseña
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -90,18 +87,28 @@ TIME_ZONE = 'America/Santiago'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Archivos estáticos
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'web/static']  # Modern Path syntax
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # For production
+STATICFILES_DIRS = [BASE_DIR / 'web/static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media files
+# Archivos multimedia
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Security recommendations (add these)
+# Seguridad extra en producción
 if not DEBUG:
     SECURE_HSTS_SECONDS = 3600
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    # Elimina esta línea o cámbiala si no quieres que todas las vistas requieran autenticación
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.IsAuthenticated',  
+    ],
+}

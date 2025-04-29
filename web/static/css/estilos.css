@@ -135,7 +135,7 @@ nav ul li a:hover {
 
 .categoria {
     text-align: center;
-    width: 200px;
+    margin: 10;
 }
 
 h2 {
@@ -272,26 +272,27 @@ form .form-control {
 
 /* Contenedor para contenido principal */
 .contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     background-color: #222b5f;
+    padding: 20px;
     border-radius: 10px;
-    width: 95%; /* Asegura que ocupe todo el ancho disponible */
-    height: 95%;
+    width: 90%;
+    margin: 30px auto 10px auto;
     color: var(--color-texto);
     font-family: 'Montserrat', sans-serif;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    max-width: 100%; /* Elimina cualquier restricción de ancho */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; /* Distribuye los elementos en columna */
-    padding: 20px; /* Mantiene el padding general */
-    margin:  auto; /* Centra el contenedor */
-    flex-wrap: wrap; /* Asegura que los elementos puedan envolverse si es necesario */
-    margin: 20px auto; /* Centra en la página */
-
+    max-width: 100%;
 }
+
+
+
+
+
 
 /*FORMULARIOS*/
 .container-formulario, .registro-container {
@@ -881,6 +882,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     .contenedor-principal .row {
         flex-direction: column;
+        display: flex;
+        justify-content: center;
     }
 
     .img-detalle {
@@ -896,9 +899,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Pantallas Pequeñas */
     
 @media (max-width: 480px) {
+    .contenedor-principal {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        padding: 15px;
+    }
+
     .categorias {
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 10px;
     }
 
     .categoria img {
@@ -910,20 +924,19 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     .categoria2 img {
         width: 200px;
         height: auto;
-        border-radius: 8px 8px 8px 8px;
+        border-radius: 8px;
     }
 
     header {
         background: url('../img/banner-movil.png') no-repeat center center;
-        background-size: cover; /* Asegura que cubra toda la pantalla */
-        height: 8vb; 
-        padding: 15px; 
+        background-size: cover;
+        height: 8vb;
+        padding: 15px;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
     }
-
 
     h1 {
         font-size: 22px;
@@ -932,12 +945,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     .slogan {
         font-size: 14px;
-        word-wrap: break-word; /* Permite que el texto pase a otra línea */
+        word-wrap: break-word;
         overflow-wrap: break-word;
         max-width: 80%;
         margin: 0 auto;
         top: 45%;
-        white-space: normal; /* Permite que el texto baje a otra línea */
+        white-space: normal;
         padding: 2px 2px;
     }
 
@@ -950,19 +963,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         display: block;
     }
 
-    .container-header { 
-        max-width: 80%; /* Limita el ancho para que el texto no toque los bordes */
-        margin: 0 auto; /* Centra horizontalmente */
+    .container-header {
+        max-width: 80%;
+        margin: 0 auto;
         padding: 10px;
-    
     }
 
     .contenido {
         text-align: center;
-        margin: 15px auto; 
+        margin: 15px auto;
         padding: 10px;
-        max-width: 80%; /* Asegura que no se desborde horizontalmente */
-        box-sizing: border-box; /* Incluye el padding en el ancho total */
+        max-width: 80%;
+        box-sizing: border-box;
     }
 
     .subcategoria {
@@ -970,35 +982,32 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         align-items: center;
         justify-content: center;
         padding: 0 10px;
-        max-width: 90%; /* Evita que el contenedor se desborde */
-        box-sizing: border-box; /* Asegura que el padding y el borde se cuenten en el ancho */
+        max-width: 90%;
+        box-sizing: border-box;
     }
 
     .subcategoria img {
-        max-width: 100%; 
+        max-width: 100%;
         height: auto;
         width: 150px;
-        margin-bottom: -20px; 
+        margin-bottom: 10px;
         align-items: center;
-        flex-wrap: wrap; /* Hace que los elementos se ajusten en múltiples filas si es necesario */
-        box-sizing: border-box; /* Asegura que el padding y el borde se cuenten en el ancho */
-        margin-bottom: 10px; /* Ajuste de margen para que no se sobrepase */
-        
+        flex-wrap: wrap;
+        box-sizing: border-box;
     }
+
     .subcategoria img:hover {
         transform: scale(1);
         border: 3px solid #876CC2;
-    
     }
 
-    .img-detalle img{
-        max-width: 90%; 
-        height: auto; 
+    .img-detalle img {
+        max-width: 90%;
+        height: auto;
         width: auto;
-        margin-bottom: -20px; 
+        margin-bottom: 10px;
         align-items: center;
-        box-sizing: border-box; /* Asegura que el padding y el borde se cuenten en el ancho */
-        margin-bottom: 10px; /* Ajuste de margen */
+        box-sizing: border-box;
     }
 
     .texto p {
@@ -1007,94 +1016,56 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         text-align: justify;
         word-wrap: break-word;
         margin-left: 0px;
-        max-width: 100%; /* Evita el desbordamiento */
+        max-width: 100%;
         box-sizing: border-box;
     }
+
     .contacto-form {
         max-width: 95% !important;
         width: 100%;
         padding: 0 10px;
     }
+
     .nav-link {
         white-space: nowrap;
-    } 
-
-    .contenedor-principal {
-        text-align: center;
-        background-color: #222b5f;
-        padding: 20px;
-        border-radius: 10px;
-        width: 80%;
-        margin: 0 auto;
-        color: var(--color-texto);
-        font-family: 'Montserrat', sans-serif;
-        word-wrap: break-word; 
-        overflow-wrap: break-word; 
-        max-width: 100%; 
-        margin-top: 10px;
-        margin-bottom: 10px;
-        justify-content: center;
-        align-items: center;
     }
 
-
-    .container-formulario, .registro-container {
+    .container-formulario, .registro-container, .container-detalle, .subcategoria {
         text-align: center;
         background-color: #222b5f;
         padding: 20px;
         border-radius: 10px;
         width: 80%;
-        margin: 0 auto;
+        margin: 10px auto;
         color: var(--color-texto);
         font-family: 'Montserrat', sans-serif;
-        word-wrap: break-word; 
-        overflow-wrap: break-word; 
-        max-width: 100%; 
-        margin-top: 10px;
-        margin-bottom: 10px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .container-detalle {
-        text-align: center;
-        background-color: #222b5f;
-        padding: 20px;
-        border-radius: 10px;
-        width: 80%;
-        margin: 0 auto;
-        color: var(--color-texto);
-        font-family: 'Montserrat', sans-serif;
-        word-wrap: break-word; 
-        overflow-wrap: break-word; 
-        max-width: 100%; 
-        margin-top: 10px;
-        margin-bottom: 10px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
         justify-content: center;
         align-items: center;
     }
 
     .texto-container {
-        max-width: 100%; 
-        margin: 0 auto; /* Centra el contenido */
+        max-width: 100%;
+        margin: 0 auto;
     }
 
-
     .titulo {
-        text-align: center; /* Centrado del texto */
-        margin-bottom: 20px; /* Espaciado debajo del título */
-        width: 100%; /* Asegura que el título ocupe el 100% del ancho */
-        display: block; /* Asegura que el título sea un bloque que ocupe todo el ancho */
+        text-align: center;
+        margin-bottom: 20px;
+        width: 100%;
+        display: block;
     }
 
     .btn-custom, .btn-secondary {
-        margin-bottom: 10px; /* Añadir espacio entre los botones */
+        margin-bottom: 10px;
     }
-
 
     html, body {
         min-width: 300px;
     }
+
     .navbar-nav {
         flex-direction: column;
         align-items: center;
@@ -1103,37 +1074,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         margin-top: -10px;
         margin-bottom: -10px;
     }
+
     .titulo-contenido {
         margin-top: 10px;
         text-align: center;
-    }
-
-    .subcategoria {
-        text-align: center;
-        background-color: #222b5f;
-        padding: 20px;
-        border-radius: 10px;
-        width: 80%;
-        margin: 0 auto;
-        color: var(--color-texto);
-        font-family: 'Montserrat', sans-serif;
-        word-wrap: break-word; 
-        overflow-wrap: break-word; 
-        max-width: 100%; 
-        margin-top: 10px;
-        margin-bottom: 10px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .img-detalle img {
-        width: 100%; /* Asegura que la imagen ocupe el 100% del ancho disponible */
-        height: auto; /* Mantiene la proporción */
-    }
-
-    .texto p {
-        font-size: 12px; /* Reduce el tamaño de fuente para pantallas pequeñas */
-        padding: 10px; /* Ajuste en el espaciado */
     }
 
     .contenedor-principal .row {
@@ -1141,16 +1085,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 
     .img-detalle {
-        margin-bottom: 20px; /* Espacio entre la imagen y el texto en pantallas pequeñas */
+        margin-bottom: 20px;
     }
 
     .col-12.col-lg-6 {
-        padding-left: 0; /* Quitar el margen a la izquierda en pantallas pequeñas */
+        padding-left: 0;
     }
-
-
-
 }
+
 
 
 
