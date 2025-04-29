@@ -59,7 +59,7 @@ MacOS (zsh):
 Integración de API REST y Consumo de API Externa RAWG 
 
 	              parte 1: API REST interna (categorias del sistema)
- creacion de una API REST en Django para exponer los datos de la tabla Categoria de nuestra base de datos Oracle.
+ creacion de una API REST en Django para hacer CRUD a los datos de la tabla Categoria de nuestra base de datos Oracle.
 
        Pasos realizados:
 1. creacion de la app api:
@@ -129,6 +129,84 @@ Para usar el token:
 	Value: Token pegartokenaquí
 	Enviar: Devuelve un JSON con la categoria Cozy.
 
+Se han agregado operaciones CRUD a Categorias y Juegos
+    Cuidado, esto puede modificar la apariencia del sitio web.
+
+    Agregar Categoria:
+    POST A http://127.0.0.1:8000/api/categorias/
+
+    Headers
+
+    Authorization Token tokenacá
+    Content-Type application/json
+
+    Body
+
+    {
+        "nombre": "simuladores",
+        "titulo": "Simuladores",
+        "lema": "️💻 Simuladores: Una vida virtual.",
+        "descripcion": "Sumérgete en experiencias realistas donde cada detalle cuenta, desde pilotar aviones y conducir trenes hasta gestionar ciudades o granjas con precisión auténtica y desafíos envolventes.",
+        "imagen": "/static/img/placeholder.jpg"
+    }
+
+
+    Modificar Categoria:
+
+    PUT a http://127.0.0.1:8000/api/categorias/6  (revisar ID con GET)
+
+
+     Headers
+
+    Authorization Token tokenacá
+    Content-Type application/json
+
+    Body
+
+    {
+        "nombre": "nuevonombre",
+        "titulo": "Nuevotitulo",
+        "lema": "️Nuevo Lema",
+        "descripcion": "Nueva descripción",
+        "imagen": "/static/img/placeholder.jpg"
+    }
+
+
+    Borrar Categoria:
+
+    Delete  a http://127.0.0.1:8000/api/categorias/6/  (revisar ID con GET)
+    
+    Headers
+    Token tokenacá
+
+
+
+Para CRUD en Juegos, se sigue el mismo formato que Categorias
+    
+    Agregar Juego:
+    
+    POST A http://127.0.0.1:8000/api/juegos/
+
+    Headers
+
+    Authorization Token tokenacá
+    Content-Type application/json
+
+    Body
+
+      {
+        "id": 12,
+        "nombre": "Juego12",
+        "descripcion": "Descripción 12.",
+        "precio": 99999,
+        "plataformas": "Plataformas 12",
+        "imagen": "/static/img/placeholder.jpg",
+        "categoria": 1
+     }
+
+
+    *Revisar ID con GET para PUT y DELETE
+    
 
 
 Parte 2: Consumo de API externa (RAWG Video Games) 
