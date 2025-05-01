@@ -7,7 +7,7 @@
 <div class="contenedor-principal">
     <h2>Editar Usuario: {{ usuario.nombre_completo }}</h2>
 
-    <form method="POST" class="mx-auto" style="max-width: 600px;">
+    <form method="POST" class="contacto-form mx-auto" style="max-width: 600px;">
         {% csrf_token %}
 
         <div class="mb-3">
@@ -73,6 +73,8 @@
         <div class="d-grid gap-2">
             <button type="submit" class="btn btn-success">Guardar Cambios</button>
         </div>
+
+        
     </form>
 </div>
 
