@@ -21,22 +21,18 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
             {% endif %}
 
-
-            {% if usuario_rol == 'administrador' %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'admin_usuarios' %}" title="Admin Usuarios" style="white-space: nowrap;">
-                    👤 Admin Usuarios
-                </a>
-            </li>
-            
-            {% endif %}
-
             {% if usuario_rol == 'administrador' or usuario_rol == 'vendedor' %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'juego_gestion' %}" title="Gestión Juegos" style="white-space: nowrap;">🎮 Gestión Juegos</a>  <!-- Nuevo enlace aquí -->
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'categoria_gestion' %}" style="white-space: nowrap;">📁 Gestión Categorías</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Gestionar
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if usuario_rol == 'administrador' %}
+                    <li><a class="dropdown-item" href="{% url 'admin_usuarios' %}">Usuarios</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="{% url 'juego_gestion' %}">Juegos</a></li>
+                    <li><a class="dropdown-item" href="{% url 'categoria_gestion' %}">Categorías</a></li>
+                </ul>
             </li>
             {% endif %}
 
