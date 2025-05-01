@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Categoria, Juego, Usuario, Favorito, Contacto
+from core.models import Categoria, Juego, Usuario, Favorito, Contacto, Resena
 from django.utils import timezone
 
 admin.site.register(Categoria)
@@ -36,3 +36,11 @@ class ContactoAdmin(admin.ModelAdmin):
         updated = queryset.update(leido=True)
         self.message_user(request, f"{updated} mensajes marcados como leídos")
     marcar_como_leido.short_description = 'Marcar como leído'
+
+@admin.register(Resena)
+class ResenaAdmin(admin.ModelAdmin):
+    list_display = ('usuario', 'juego', 'puntuacion', 'fecha_creacion')
+    list_filter = ('puntuacion', 'juego', 'usuario')
+    search_fields = ('usuario__nombre_usuario', 'juego__nombre', 'comentario')
+    readonly_fields = ('fecha_creacion', 'fecha_actualizacion')
+    date_hierarchy = 'fecha_creacion'

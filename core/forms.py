@@ -1,6 +1,6 @@
 from django import forms 
 from django.contrib.auth.hashers import make_password
-from .models import Usuario, Juego
+from .models import Usuario, Juego, Resena
 from django.conf import settings
 from django.forms import DateInput
 
@@ -149,4 +149,26 @@ class JuegoForm(forms.ModelForm):
             'categoria': forms.Select(attrs={'class': 'form-select'}),
             'plataformas': forms.SelectMultiple(attrs={'class': 'form-select'}),
             'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }
+
+
+class ResenaForm(forms.ModelForm):
+    class Meta:
+        model = Resena
+        fields = ['puntuacion', 'comentario']
+        widgets = {
+            'puntuacion': forms.NumberInput(attrs={
+                'min': 1,
+                'max': 5,
+                'class': 'form-control'
+            }),
+            'comentario': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 3,
+                'placeholder': 'Escribe tu reseña...'
+            }),
+        }
+        labels = {
+            'puntuacion': 'Calificación (1-5)',
+            'comentario': 'Comentario'
         }

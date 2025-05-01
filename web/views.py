@@ -1,14 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from core.models import Categoria, Juego, Usuario, Contacto
+from core.models import Categoria, Juego, Usuario, Contacto, Resena
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password, make_password
-from core.forms import UsuarioForm, LoginForm, PerfilForm, JuegoForm
+from core.forms import UsuarioForm, LoginForm, PerfilForm, JuegoForm, ResenaForm
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 import json, requests
 from api.views_externa import obtener_lanzamientos
-
+from django.db import models
 
 # Decorador para proteger vistas según el rol del usuario
 def solo_rol_permitido(roles=[]):
@@ -315,10 +315,6 @@ def subcategoria(request, categoria_id):
     juegos = Juego.objects.filter(categoria=categoria)
     return render(request, 'web/subcategorias.html', {'categoria': categoria, 'juegos': juegos, **obtener_usuario_nombre(request)})
 
-def detalle_juego(request, juego_id):
-    juego = get_object_or_404(Juego, pk=juego_id)
-    return render(request, 'web/detalle.html', {'juego': juego, **obtener_usuario_nombre(request)})
-
 
 def lanzamientos(request):
     juegos_lanzamiento = obtener_lanzamientos()
@@ -344,3 +340,44 @@ def contacto(request):
         return redirect('contacto')
     
     return render(request, 'web/contacto.html', obtener_usuario_nombre(request))
+
+
+def detalle_juego(request, juego_id):
+    juego = get_object_or_404(Juego, pk=juego_id)
+    usuario_id = request.session.get('usuario_id')
+    usuario = Usuario.objects.get(id=usuario_id) if usuario_id else None
+    
+    # Obtener reseñas existentes
+    reseñas = Resena.objects.filter(juego=juego).order_by('-fecha_creacion')
+    
+    # Manejar envío de nueva reseña
+    if request.method == 'POST' and usuario:
+        form = ResenaForm(request.POST)
+        if form.is_valid():
+            # Verificar si ya existe una reseña de este usuario
+            reseña, created = Resena.objects.get_or_create(
+                usuario=usuario,
+                juego=juego,
+                defaults=form.cleaned_data
+            )
+            if not created:
+                # Actualizar reseña existente
+                reseña.puntuacion = form.cleaned_data['puntuacion']
+                reseña.comentario = form.cleaned_data['comentario']
+                reseña.save()
+            return redirect('detalle_juego', juego_id=juego.id)
+    else:
+        form = ResenaForm()
+    
+    # Calcular promedio de puntuaciones
+    promedio = reseñas.aggregate(models.Avg('puntuacion'))['puntuacion__avg'] or 0
+    
+    context = {
+        'juego': juego,
+        'reseñas': reseñas,
+        'form': form,
+        'promedio': round(promedio, 1),
+        'usuario_tiene_reseña': reseñas.filter(usuario=usuario).exists() if usuario else False,
+        **obtener_usuario_nombre(request)
+    }
+    return render(request, 'web/detalle.html', context)

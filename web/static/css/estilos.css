@@ -1163,6 +1163,156 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     }
 }
 
+/* ESTILOS PARA EL SISTEMA DE RESEÑAS */
+.reseñas-section {
+    background-color: var(--color-secundario);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    border: 1px solid var(--violeta-suave);
+}
 
+.reseñas-section h3 {
+    color: var(--color-texto);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
+.reseña-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--violeta-suave);
+    transition: transform 0.3s ease;
+}
 
+.reseña-card:hover {
+    transform: translateY(-3px);
+}
+
+.reseña-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.reseña-usuario {
+    font-weight: 600;
+    color: var(--color-texto);
+}
+
+.reseña-fecha {
+    color: var(--violeta-suave);
+    font-size: 0.9em;
+}
+
+.reseña-estrellas {
+    color: #FFD700; /* Color dorado para las estrellas */
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+.reseña-comentario {
+    color: var(--color-texto);
+    line-height: 1.5;
+    text-align: justify;
+}
+
+/* Formulario de reseña */
+.reseña-form {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.reseña-form h5 {
+    color: var(--color-texto);
+    margin-bottom: 15px;
+}
+
+.reseña-form label {
+    color: var(--color-texto);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.reseña-form select,
+.reseña-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--violeta-suave);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-texto);
+    margin-bottom: 15px;
+}
+
+.reseña-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.reseña-form button {
+    background-color: var(--violeta-oscuro);
+    color: var(--color-texto);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reseña-form button:hover {
+    background-color: #5f449a;
+}
+
+/* Valoración promedio */
+.valoracion-promedio {
+    background-color: rgba(135, 108, 194, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.valoracion-promedio .estrellas {
+    font-size: 1.3em;
+    color: #FFD700;
+    margin: 0 5px;
+}
+
+/* Mensajes informativos */
+.alert-info {
+    background-color: rgba(135, 108, 194, 0.3);
+    border: 1px solid var(--violeta-suave);
+    color: var(--color-texto);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.alert-info a {
+    color: var(--violeta-suave);
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reseña-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .reseña-fecha {
+        margin-top: 5px;
+    }
+    
+    .reseña-form {
+        padding: 15px;
+    }
+}

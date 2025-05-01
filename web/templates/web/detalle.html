@@ -24,11 +24,86 @@
                             {{ juego.descripcion }}<br><br>
                             <strong>Precio: {{ juego.precio|formato_precio }}</strong>
                         </p>
+                        
+                        <!-- Valoración promedio -->
+                        {% if promedio %}
+                        <div class="valoracion-promedio mb-3">
+                            <span class="fw-bold">Valoración promedio:</span>
+                            <span class="estrellas text-warning">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= promedio %}★{% else %}☆{% endif %}
+                                {% endfor %}
+                                ({{ promedio|floatformat:1 }} de 5)
+                            </span>
+                            <small class="text-muted">({{ reseñas.count }} reseñas)</small>
+                        </div>
+                        {% endif %}
+                        
                         <div class="boton-agregar-carrito">
                             <button id="agregarCarrito" class="btn-agregar" onclick="alert('✅ Agregado al carrito')">
                                 <img src="{% static 'img/agregar-carrito.png' %}" alt="Agregar al carrito" class="agregar-carrito">
                                 Agregar al carrito
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sección de reseñas -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="reseñas-section border-top pt-4">
+                        <h3 class="mb-4">Reseñas de los usuarios</h3>
+                        
+                        <!-- Formulario para nueva reseña -->
+                        {% if usuario_nombre and not usuario_tiene_reseña %}
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Escribe tu reseña</h5>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="id_puntuacion" class="form-label">Puntuación (1-5 estrellas)</label>
+                                        {{ form.puntuacion }}
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="id_comentario" class="form-label">Comentario</label>
+                                        {{ form.comentario }}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar reseña</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% elif not usuario_nombre %}
+                        <div class="alert alert-info">
+                            <a href="{% url 'login' %}?next={% url 'detalle_juego' juego.id %}" class="alert-link">Inicia sesión</a> para dejar tu reseña.
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Listado de reseñas -->
+                        <div class="reseñas-list">
+                            {% if reseñas %}
+                                {% for reseña in reseñas %}
+                                <div class="card mb-3 shadow-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="card-title">{{ reseña.usuario.nombre_usuario }}</h5>
+                                            <small class="text-muted">{{ reseña.fecha_creacion|date:"d M Y" }}</small>
+                                        </div>
+                                        <div class="estrellas text-warning mb-2">
+                                            {% for i in "12345" %}
+                                                {% if forloop.counter <= reseña.puntuacion %}★{% else %}☆{% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <p class="card-text">{{ reseña.comentario }}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="alert alert-secondary">
+                                    Este juego aún no tiene reseñas. ¡Sé el primero en opinar!
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

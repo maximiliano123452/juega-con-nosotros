@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
@@ -80,3 +82,24 @@ class Contacto(models.Model):
         verbose_name = 'Mensaje de contacto'
         verbose_name_plural = 'Mensajes de contacto'
         ordering = ['-fecha_creacion']
+
+
+class Resena(models.Model):
+    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
+    juego = models.ForeignKey('Juego', on_delete=models.CASCADE)
+    puntuacion = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)],
+        help_text="Puntuación del 1 al 5"
+    )
+    comentario = models.TextField(max_length=500, blank=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'core_resena'
+        verbose_name = 'Reseña'
+        verbose_name_plural = 'Reseñas'
+        unique_together = ('usuario', 'juego')  # Un usuario solo puede reseñar un juego una vez
+
+    def __str__(self):
+        return f"Reseña de {self.usuario.nombre_usuario} para {self.juego.nombre} ({self.puntuacion}/5)"
