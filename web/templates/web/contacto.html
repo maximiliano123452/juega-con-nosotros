@@ -3,43 +3,42 @@
 {% block title %}Contacto{% endblock %}
 
 {% block content %}
-
-        
-<div class="container-formulario">          
+<div class="container-formulario">
     <div class="container mt-5">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+
         <div class="row">
-            <div class="col-12 d-flex justify-content-center">
+            <div class="col-12 text-center">
                 <h2 class="titulo">📞 Contáctanos</h2>
-                <div>
-                    <p class="mb-4 text-center">Si tienes consultas o sugerencias, completa el formulario o envíanos un correo a
-                    <a href="mailto:ventas@jcn.cl" class="enlace-blanco">ventas@jcn.cl</a> </p>
-                </div>
+                <p class="mb-4">Si tienes consultas o sugerencias, completa el formulario o escríbenos a 
+                <a href="mailto:ventas@jcn.cl" class="enlace-blanco">ventas@jcn.cl</a></p>
             </div>
       
-            <div class="col-md-8">
-                <form id="contactoForm" class="contacto-form mx-auto" style="max-width: 600px;">
+            <div class="col-md-8 mx-auto">
+                <form method="POST" class="contacto-form" style="max-width: 600px;">
+                    {% csrf_token %}
                     <div class="mb-3">
-                        <label for="nombre" class="form-label required">Nombre Completo</label>
-                        <input type="text" class="form-control" id="nombre" required placeholder="Ingresa tu nombre"/>
+                        <label for="nombre" class="form-label">Nombre Completo *</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label required">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" required placeholder="tucorreo@ejemplo.com"/>
+                        <label for="email" class="form-label">Correo Electrónico *</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="mensaje" class="form-label required">Mensaje</label>
-                        <textarea id="mensaje" name="mensaje" class="form-control" placeholder="Escribe tu mensaje aquí..." required rows="6"></textarea>
+                        <label for="mensaje" class="form-label">Mensaje *</label>
+                        <textarea class="form-control" id="mensaje" name="mensaje" rows="6" required></textarea>
                     </div>
-    
                     <button type="submit" class="btn btn-custom">Enviar Mensaje</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
-
-
-
-

@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
@@ -61,3 +62,21 @@ class Favorito(models.Model):
 
     class Meta:
         db_table = 'core_favorito'
+
+
+
+class Contacto(models.Model):
+    nombre = models.CharField('Nombre completo', max_length=100)
+    email = models.EmailField('Correo electrónico')
+    mensaje = models.TextField('Mensaje')
+    fecha_creacion = models.DateTimeField('Fecha de envío', default=timezone.now)
+    leido = models.BooleanField('¿Leído?', default=False)
+    respuesta = models.TextField('Respuesta', blank=True, null=True)
+    
+    def __str__(self):
+        return f"Mensaje de {self.nombre} ({self.email})"
+    
+    class Meta:
+        verbose_name = 'Mensaje de contacto'
+        verbose_name_plural = 'Mensajes de contacto'
+        ordering = ['-fecha_creacion']

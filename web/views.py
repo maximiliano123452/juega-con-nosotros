@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from core.models import Categoria, Juego, Usuario
+from core.models import Categoria, Juego, Usuario, Contacto
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password, make_password
 from core.forms import UsuarioForm, LoginForm, PerfilForm, JuegoForm
@@ -326,3 +326,21 @@ def lanzamientos(request):
         'lanzamientos': juegos_lanzamiento,
         **obtener_usuario_nombre(request)
     })
+
+
+def contacto(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        mensaje = request.POST.get('mensaje')
+        
+        Contacto.objects.create(
+            nombre=nombre,
+            email=email,
+            mensaje=mensaje
+        )
+        
+        messages.success(request, '¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.')
+        return redirect('contacto')
+    
+    return render(request, 'web/contacto.html', obtener_usuario_nombre(request))
