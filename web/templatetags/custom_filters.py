@@ -3,6 +3,9 @@ from django.forms import BoundField
 register = template.Library()
 
 
+
+
+
 @register.filter
 def add_class(field, css_class):
     """Añade una clase CSS a un campo de formulario"""
@@ -18,3 +21,6 @@ def formato_precio(value):
         return f"CLP ${value:,.0f}".replace(",", ".")
     except (ValueError, TypeError):
         return value
+    
+
+    

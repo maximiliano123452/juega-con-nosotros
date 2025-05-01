@@ -54,26 +54,26 @@
                 <div class="col-12">
                     <div class="reseñas-section border-top pt-4">
                         <h3 class="mb-4">Reseñas de los usuarios</h3>
-                        
                         <!-- Formulario para nueva reseña -->
                         {% if usuario_nombre and not usuario_tiene_reseña %}
-                        <div class="card mb-4 shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Escribe tu reseña</h5>
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <div class="mb-3">
-                                        <label for="id_puntuacion" class="form-label">Puntuación (1-5 estrellas)</label>
-                                        {{ form.puntuacion }}
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="id_comentario" class="form-label">Comentario</label>
-                                        {{ form.comentario }}
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Enviar reseña</button>
-                                </form>
-                            </div>
+                        <div class="col-md-8 mx-auto">
+                            <form method="POST" class="contacto-form" style="max-width: 600px;">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="id_puntuacion" class="form-label">Puntuación (1-5 estrellas)</label>
+                                    <!--<input type="text" class="form-control" id="nombre" name="nombre" required>-->
+                                    {{ form.puntuacion }}
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="comentario" class="form-label">Comentario</label>
+                                    <!-- <textarea class="form-control" id="mensaje" name="mensaje" rows="6" required></textarea> -->
+                                    {{ form.comentario }}
+                                </div>
+                                <button type="submit" class="btn btn-custom">Enviar Reseña</button>
+                            </form>
                         </div>
+                       
                         {% elif not usuario_nombre %}
                         <div class="alert alert-info">
                             <a href="{% url 'login' %}?next={% url 'detalle_juego' juego.id %}" class="alert-link">Inicia sesión</a> para dejar tu reseña.
