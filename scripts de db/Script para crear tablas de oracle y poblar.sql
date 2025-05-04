@@ -19,8 +19,10 @@ ALTER USER admin_jcn DEFAULT ROLE "RESOURCE","CONNECT";
 -- PARA BORRAR TABLAS 
 -- DROP TABLE CORE_JUEGO;
 -- DROP TABLE CORE_CATEGORIA;
--- DROP TABLA CORE_USUARIO;
-
+-- DROP TABLE CORE_USUARIO;
+-- DROP TABLA CORE_FAVORITO;
+-- DROP TABLE CORE_RESENA;
+-- DROP TABLE CORE_CONTACTO;
 
 -- CREAR TABLA CATEGORIA
 
@@ -62,6 +64,49 @@ CREATE TABLE CORE_USUARIO (
     direccion_despacho VARCHAR2(255),
     rol VARCHAR2(20) CHECK (rol IN ('administrador', 'vendedor', 'cliente', 'invitado'))
 );
+
+
+
+
+-- CREAR TABLA CONTACTO
+
+CREATE TABLE CORE_CONTACTO (
+    id              NUMBER(19)     PRIMARY KEY,
+    nombre          NVARCHAR2(100),
+    email           NVARCHAR2(254),
+    mensaje         NCLOB,
+    fecha_creacion  TIMESTAMP(6)   NOT NULL,
+    leido           NUMBER(1)      NOT NULL,
+    respuesta       NCLOB
+);
+
+
+-- CREAR TABLA FAVORITO
+
+CREATE TABLE CORE_FAVORITO (
+    id          NUMBER(19)     PRIMARY KEY,
+    juego_id    NUMBER(19)     NOT NULL,
+    usuario_id  NUMBER(19)     NOT NULL,
+    
+    CONSTRAINT fk_favorito_juego FOREIGN KEY (juego_id) REFERENCES core_juego(id),
+    CONSTRAINT fk_favorito_usuario FOREIGN KEY (usuario_id) REFERENCES core_usuario(id)
+);
+
+
+-- CREAR TABLA RESEÑA
+CREATE TABLE CORE_RESENA (
+    id                   NUMBER(19)     PRIMARY KEY,
+    puntuacion           NUMBER(11)     NOT NULL,
+    comentario           NCLOB,
+    fecha_creacion       TIMESTAMP(6)   NOT NULL,
+    fecha_actualizacion  TIMESTAMP(6)   NOT NULL,
+    juego_id             NUMBER(19)     NOT NULL,
+    usuario_id           NUMBER(19)     NOT NULL,
+    
+    CONSTRAINT fk_resena_juego FOREIGN KEY (juego_id) REFERENCES core_juego(id),
+    CONSTRAINT fk_resena_usuario FOREIGN KEY (usuario_id) REFERENCES core_usuario(id)
+);
+
 
 
 
@@ -154,6 +199,9 @@ VALUES ('Resident Evil 4 Remake',
 SELECT * FROM CORE_CATEGORIA;
 SELECT * FROM CORE_JUEGO;
 SELECT * FROM CORE_USUARIO;
+SELECT * FROM CORE_FAVORITO;
+SELECT * FROM CORE_CONTACTO;
+SELECT * FROM CORE_RESENA;
 
 
 
